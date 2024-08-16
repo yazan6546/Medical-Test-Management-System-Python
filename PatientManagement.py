@@ -1,8 +1,13 @@
+from Patient import Patient
 
 patients = {}
 
-def add_patient(patient):
-    patients[patient.id] = patient
+def add_patient(id):
+    if id not in patients:
+        patient = Patient(id)
+        patients[id] = patient
+
+
 
 def remove_patient(patient):
     patients.pop(patient.id)
