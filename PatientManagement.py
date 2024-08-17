@@ -39,8 +39,8 @@ def main():
     records = content.split('\n')
 
     for record in records:
-        id = record.split(':')[0]
-        data = record.split(':')[1]
+        id = record.split(':')[0].strip()
+        data = record.split(':')[1].strip()
 
         if id not in patients:
             add_patient(id)
