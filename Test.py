@@ -5,7 +5,6 @@ class Test:
         self.name = name
         self.status = status
         self.date_start = date_start
-        self.date_end = date_end
         self.unit = unit
         self.result = result
 
@@ -15,7 +14,6 @@ class Test:
         elif status != 'reviewed' and status != 'pending':
             raise Exception('Invalid status : ' + status)
 
-        Test[name] = True
 
     @staticmethod
     def create_test(record):
