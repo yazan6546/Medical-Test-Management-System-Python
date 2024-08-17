@@ -28,11 +28,11 @@ class Test:
         name = str(array[0].strip())
         start = array[1].strip()
         result = float(array[2].strip())
-        unit = array[3].strip().strip
+        unit = str(array[3].strip())
         status = str(array[4]).strip()
 
         if len(array) > 5:
-            end = array[5]
+            end = str(array[5].strip())
             test = Test(name, status, unit, start, end, result)
         else:
             test = Test(name, status, unit, start, result)

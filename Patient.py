@@ -2,7 +2,7 @@ from Test import *
 
 class Patient:
 
-    __patients = {}
+    patients = {}
 
     def __init__(self, id):
         self.__tests = []
@@ -13,6 +13,10 @@ class Patient:
         self.__tests.append(test)
     def delete_test(self, test):
         self.__tests.remove(test)
+
+    def print_tests(self):
+        for i in self.__tests:
+            print(i)
 
     @staticmethod
     def import_records():
@@ -26,24 +30,24 @@ class Patient:
         for record in records:
             id = record.split(':', 1)[0].strip()
             data = record.split(':', 1)[1].strip()
-            if id not in Patient.__patients:
+            if id not in Patient.patients:
                 Patient.add_patient(id)
             test = Test.create_test(data)
-            Patient.__patients[id].add_test(test)
+            Patient.patients[id].add_test(test)
 
-        for patient in Patient.__patients.values():
+        for patient in Patient.patients.values():
             print(patient.id)
 
 
     @staticmethod
     def add_patient(id):
         patient = Patient(id)
-        Patient.__patients[id] = patient
+        Patient.patients[id] = patient
 
     @staticmethod
     def get_patient(id):
-        return Patient.__patients[id]
+        return Patient.patients[id]
 
     @staticmethod
     def remove_patient(patient):
-        Patient.__patients.pop(patient.id)
+        Patient.patients.pop(patient.id)
