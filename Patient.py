@@ -58,3 +58,8 @@ class Patient:
     @staticmethod
     def remove_patient(patient):
         Patient.patients.pop(patient.id)
+
+    @staticmethod
+    def convert_to_array():
+        array = [(i.id, i.__tests) for i in Patient.patients.values()]
+        return array

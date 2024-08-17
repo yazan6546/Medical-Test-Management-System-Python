@@ -6,7 +6,6 @@ from Test_type import Test_type
 
 class Test:
 
-    Test = {}
     def __init__(self, name, status, unit, date_start, date_end=None, result=None):
         self.name = name
         self.status = status
@@ -58,7 +57,7 @@ class Test:
 
 
 
-    def is_abonormal(self):
+    def is_abnormal(self):
         range1 = Test_type.types[self.name].range1 # get the normal range of this test
         range2 = Test_type.types[self.name].range2
 
