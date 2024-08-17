@@ -8,11 +8,12 @@ class Test:
         self.date_end = date_end
         self.unit = unit
         self.result = result
+
         if status == 'completed':
             self.date_end = date_end
 
-        elif status != 'reviewed' or status != 'pending':
-            raise Exception('Invalid status')
+        elif status != 'reviewed' and status != 'pending':
+            raise Exception('Invalid status : ' + status)
 
         Test[name] = True
 
@@ -20,11 +21,11 @@ class Test:
     def create_test(record):
 
         array = record.split(',')
-        name = array[0]
-        start = array[1]
-        result = array[2]
-        unit = array[3]
-        status = array[4]
+        name = str(array[0].strip())
+        start = array[1].strip()
+        result = float(array[2].strip())
+        unit = array[3].strip().strip
+        status = str(array[4]).strip()
 
         if len(array) > 5:
             end = array[5]
