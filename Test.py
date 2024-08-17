@@ -1,3 +1,6 @@
+from pkgutil import resolve_name
+
+
 class Test:
 
     Test = {}
@@ -8,10 +11,10 @@ class Test:
         self.unit = unit
         self.result = result
 
-        if status == 'completed':
+        if status.lower() == 'completed':
             self.date_end = date_end
 
-        elif status != 'reviewed' and status != 'pending':
+        elif status.lower() != 'reviewed' and status.lower() != 'pending':
             raise Exception('Invalid status : ' + status)
 
     def __str__(self):
@@ -33,9 +36,9 @@ class Test:
 
         if len(array) > 5:
             end = str(array[5].strip())
-            test = Test(name, status, unit, start, end, result)
+            test = Test(name=name, status=status, unit=unit, date_start=start, date_end=end, result=result)
         else:
-            test = Test(name, status, unit, start, result)
+            test = Test(name=name, status=status, unit=unit, date_start=start, result=result)
 
         return test
 

@@ -18,6 +18,9 @@ class Patient:
         for i in self.__tests:
             print(i)
 
+    def __str__(self):
+        return '\n'.join(map(str,self.__tests))
+
     @staticmethod
     def import_records():
         # Read the entire file into a string
@@ -35,8 +38,8 @@ class Patient:
             test = Test.create_test(data)
             Patient.patients[id].add_test(test)
 
-        for patient in Patient.patients.values():
-            print(patient.id)
+        # for patient in Patient.patients.values():
+        #     print(patient.id)
 
 
     @staticmethod
