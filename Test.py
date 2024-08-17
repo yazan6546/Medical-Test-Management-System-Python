@@ -1,7 +1,5 @@
 import datetime
 from copy import copy, deepcopy
-from pkgutil import resolve_name
-from venv import create
 
 from Test_type import Test_type
 
@@ -14,7 +12,7 @@ class Test:
         self.status = status
         self.date_start = deepcopy(date_start)
         self.unit = unit
-        self.result = result
+        self.result = float(result)
 
         if status.lower() == 'completed':
             self.date_end = deepcopy(date_end)

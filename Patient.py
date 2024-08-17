@@ -18,6 +18,9 @@ class Patient:
         for i in self.__tests:
             print(i)
 
+    def get_test(self, index):
+        return self.__tests[index]
+
     def __str__(self):
         return '\n'.join(map(str,self.__tests))
 

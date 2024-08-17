@@ -4,9 +4,9 @@ class Test_type:
 
     def __init__(self, unit, range1=None, range2 = None):
         if range1 is not None:
-            self.range1 = range1
+            self.range1 = float(range1)
         if range2 is not None:
-            self.range2 = range2
+            self.range2 = float(range2)
         if range1 is None and range2 is None:
             raise Exception("You must specify either range1 or range2")
 
@@ -22,7 +22,6 @@ class Test_type:
         tests = content.split('\n')
         tests = list(filter(lambda x : x != '', tests))
         for test in tests:
-            print(test)
             columns = test.split(';')
             name = columns[0].strip()
             range = columns[1].strip()
