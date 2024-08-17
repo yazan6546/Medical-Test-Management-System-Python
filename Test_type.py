@@ -20,8 +20,9 @@ class Test_type:
 
         # Split content based on the first delimiter ':'
         tests = content.split('\n')
-
+        tests = list(filter(lambda x : x != '', tests))
         for test in tests:
+            print(test)
             columns = test.split(';')
             name = columns[0].strip()
             range = columns[1].strip()

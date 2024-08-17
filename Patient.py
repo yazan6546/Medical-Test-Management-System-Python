@@ -29,6 +29,7 @@ class Patient:
 
         # Split content based on the first delimiter ':'
         records = content.split('\n')
+        records = list(filter(lambda x : x != '', records))
 
         for record in records:
             id = record.split(':', 1)[0].strip()

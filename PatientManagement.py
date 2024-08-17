@@ -23,6 +23,7 @@ def main():
         option = int(input("enter your choice: "))
 
         if option == 1:
+            continue
 
 
 
