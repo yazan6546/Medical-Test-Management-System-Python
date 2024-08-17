@@ -15,7 +15,17 @@ def show_menu():
 
 
 def main():
-    show_menu()
+
+    while True:
+
+        show_menu()
+        print("Choose your option.")
+        option = int(input("enter your choice: "))
+
+        if option == 1:
+
+
+
 
 
 if __name__ == '__main__':
