@@ -1,11 +1,11 @@
 from Patient import Patient
+from Test import *
+Pandas as pd
 
 patients = {}
-
 def add_patient(id):
-    if id not in patients:
-        patient = Patient(id)
-        patients[id] = patient
+    patient = Patient(id)
+    patients[id] = patient
 
 
 
@@ -25,12 +25,29 @@ def show_menu():
 8• Import medical records from a comma separated file.""")
 
 
+def import_medical_records():
+
+
 def main():
     show_menu()
+
+    # Read the entire file into a string
+    with open('medicalRecord.txt', 'r') as file:
+        content = file.read()
+
+    # Split content based on the first delimiter ':'
+    records = content.split('\n')
+
+    for record in records:
+        id = record.split(':')[0]
+        data = record.split(':')[1]
+
+        if id not in patients:
+            add_patient(id)
+        test = Test.create_test(data)
+        patients[id].add_test(test)
 
 
 if __name__ == '__main__':
 
-
-    while True:
-        main()
+    main()
