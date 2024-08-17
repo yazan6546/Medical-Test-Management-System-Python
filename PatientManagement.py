@@ -1,7 +1,5 @@
-from Patient import Patient
+from Patient import *
 from Test import *
-
-patients = {}
 
 def show_menu():
     print("""--------Medical Test Management System-------

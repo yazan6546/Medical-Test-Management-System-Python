@@ -14,6 +14,12 @@ class Test:
         elif status != 'reviewed' and status != 'pending':
             raise Exception('Invalid status : ' + status)
 
+    def __str__(self):
+        test =  f"%s, %s, %f, %s, %s" % (self.name, self.date_start, self.result, self.unit, self.status)
+        if self.status == 'completed':
+            test += f", %s" % self.date_end
+        return test
+
 
     @staticmethod
     def create_test(record):
