@@ -28,20 +28,20 @@ class Test:
 
         if len(array) > 5:
             end = array[5]
-            test = Test(name, status, start, end, unit, result)
+            test = Test(name, status, unit, start, end, result)
         else:
-            test = Test(name, status, start, unit, result)
+            test = Test(name, status, unit, start, result)
 
         return test
 
 
 
 
-    def is_abonormal(self):
-        if self.range2 is None and self.result is not None and self.result < self.range1:
-            return True
-        if self.range2 is not None and self.result is not None and self.result > self.range2 or self.result < self.range1:
-            return True
-        else:
-            return False
+    # def is_abonormal(self):
+    #     if self.result is not None and self.result:
+    #         return True
+    #     if self.result is not None and self.result
+    #         return True
+    #     else:
+    #         return False
 

@@ -1,6 +1,5 @@
 from Patient import Patient
 from Test import *
-Pandas as pd
 
 patients = {}
 def add_patient(id):
@@ -25,9 +24,6 @@ def show_menu():
 8• Import medical records from a comma separated file.""")
 
 
-def import_medical_records():
-
-
 def main():
     show_menu()
 
@@ -39,13 +35,16 @@ def main():
     records = content.split('\n')
 
     for record in records:
-        id = record.split(':')[0].strip()
-        data = record.split(':')[1].strip()
-
+        id = record.split(':', 1)[0].strip()
+        data = record.split(':', 1)[1].strip()
+        print(data)
         if id not in patients:
             add_patient(id)
         test = Test.create_test(data)
         patients[id].add_test(test)
+
+    for patient in patients.values():
+        print(patient.id)
 
 
 if __name__ == '__main__':
