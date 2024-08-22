@@ -1,5 +1,6 @@
 from ConsolePrinter import ConsolePrinter
 from InputValidator import InputValidator
+from Test_type import Test_type
 from Utilities import Utilities
 
 
@@ -13,6 +14,10 @@ class InsertionHandler:
 
             if not test_name.isalpha():
                 print("please enter a valid test name\n")
+                continue
+
+            if test_name in Test_type.types:
+                print("Test already exists in medicalTest.txt. Enter another name\n")
                 continue
 
             test_lower_bound = input("Enter test lower bound, if no lower bound exists, enter -1: \n")
@@ -41,22 +46,22 @@ class InsertionHandler:
                 print("please enter a valid test period\n")
                 continue
 
-
-
-
             file_input_string = ''
-            if (test_lower_bound != '-1' and test_upper_bound != '-1' and
-                    Utilities.are_bounds_consistent(test_lower_bound, test_upper_bound)):
+            if (test_lower_bound != '-1' and test_upper_bound != '-1'):
                 file_input_string = \
-                    f"{test_name};>{test_lower_bound},<{test_upper_bound};{test_unit};{test_period}\n"
+                f"{test_name};>{test_lower_bound},<{test_upper_bound};{test_unit};{test_period}\n"
+                Test_type(test_name, test_lower_bound, test_upper_bound, test_unit)
+
             elif test_lower_bound == '-1':
                 file_input_string = f"{test_name};<{test_upper_bound};{test_unit};{test_period}\n"
             else:
                 file_input_string = f"{test_name};>{test_lower_bound};{test_unit};{test_period}\n"
 
-            record_file = open('medicalRecord.txt', 'a')
+            record_file = open('medicalTest.txt', 'a')
             record_file.write(file_input_string)
             record_file.close()
+
+            Test_type.types[test_name] = Test_type()
             access = True
 
 
