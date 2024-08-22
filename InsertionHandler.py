@@ -78,37 +78,39 @@ class InsertionHandler:
         while not access:
             patient_id = input("Enter patient patient ID: \n").strip()
 
+            if not InputValidator.is_patient_id_valid(patient_id):
+                print("enter a valid patient ID \n")
+                continue
+
             ConsolePrinter.print_test_names()
             print()
 
             test_name_number = input("Enter the number of the test you want:\n").strip()
+
+            if not InputValidator.is_test_number_valid(test_name_number):
+                print("enter a valid test number \n")
+                continue
+
             test_date_time = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
+
+            if not InputValidator.is_date_time_valid(test_date_time):
+                print("enter a valid test date and time \n")
+                continue
+
             test_result = input("Enter test result: \n").strip()
-            test_unit = input("Enter test unit: \n").strip()
+
+            if not Utilities.isfloat(test_result):
+                print("enter a valid floating point test result \n")
+                continue
 
             ConsolePrinter.print_available_test_states()
 
             test_status_number = input("Enter test status number from the list above:\n").strip()
-
-            if not InputValidator.is_patient_id_valid(patient_id):
-                print("enter a valid patient ID \n")
-                continue
-            if not InputValidator.is_test_number_valid(test_name_number):
-                print("enter a valid test number \n")
-                continue
-            if not InputValidator.is_date_time_valid(test_date_time):
-                print("enter a valid test date and time \n")
-                continue
-            if not Utilities.isfloat(test_result):
-                print("enter a valid test result \n")
-                continue
-            if test_unit is None:
-                print("enter a valid test unit\n")
-                continue
             if not InputValidator.is_test_status_number_valid(test_status_number):
                 print("enter a valid test status number \n")
                 continue
 
+            # access = True
             # test_name = tests_list.split("- ")[int(test_status_number)][1]
             # test_status = test_states_list("- ")[int(test_status_number)][1]
 

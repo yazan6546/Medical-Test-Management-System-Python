@@ -1,4 +1,5 @@
 from datetime import datetime
+from Test_type import Test_type
 
 
 class InputValidator:
@@ -9,9 +10,7 @@ class InputValidator:
 
     @staticmethod
     def is_test_number_valid(test_number):
-        with open(r"medicalTest.txt", 'r') as fp:
-            lines = len(fp.readlines())
-
+        lines = len(Test_type.types)
         return test_number.isnumeric() and int(test_number) <= lines
 
     @staticmethod

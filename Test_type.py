@@ -14,6 +14,11 @@ class Test_type:
         self.unit = unit
         self.name = name
 
+
+    def __str__(self):
+        return
+
+
     @staticmethod
     def import_tests():
 

@@ -1,5 +1,6 @@
 import datetime
 from copy import copy, deepcopy
+from venv import create
 
 from Test_type import Test_type
 
@@ -9,19 +10,19 @@ class Test:
     def __init__(self, name, status, unit, date_start, date_end=None, result=None):
         self.name = name
         self.status = status
-        self.date_start = deepcopy(date_start)
+        self.date_start = Test.create_date(date_start)
         self.unit = unit
         self.result = float(result)
 
         if status.lower() == 'completed':
-            self.date_end = deepcopy(date_end)
+            self.date_end = Test.create_date(date_end)
 
         elif status.lower() != 'reviewed' and status.lower() != 'pending':
             raise Exception('Invalid status : ' + status)
 
     def __str__(self):
         test =  f"%s, %s, %f, %s, %s" % (self.name, self.date_start, self.result, self.unit, self.status)
-        if self.status == 'completed':
+        if self.status.lower() == 'completed':
             test += f", %s" % self.date_end
         return test
 
@@ -32,8 +33,7 @@ class Test:
         array = record.split(',')
         name = str(array[0].strip())
 
-        start = array[1].strip()
-        start = Test.create_date(start)
+        start = str(array[1].strip())
 
         result = float(array[2].strip())
         unit = str(array[3].strip())
@@ -42,7 +42,6 @@ class Test:
         if len(array) > 5:
 
             end = str(array[5].strip())
-            end = Test.create_date(end)
 
             test = Test(name=name, status=status, unit=unit, date_start=start, date_end=end, result=result)
         else:
