@@ -89,7 +89,7 @@ class InsertionHandler:
 
             test_name = input("Enter the test you want:\n").strip()
 
-            if not InputValidator.is_test_name_valid(test_name):
+            if not InputValidator.is_test_name_valid(test_name, Test_type.types):
                 print("enter a valid test name \n")
                 continue
 

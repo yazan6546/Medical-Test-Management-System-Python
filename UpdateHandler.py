@@ -6,80 +6,47 @@ from Utilities import Utilities
 from Patient import Patient
 
 
-class InsertionHandler:
+class UpdateHandler:
 
     @staticmethod
-    def insert_medical_test():
+    def update_medical_test():
 
         list_key = list(Test_type.types.keys())
 
         access = False
         while not access:
+
+            ConsolePrinter.print_test_file()
+            print()
+
             test_number = input("Enter test line number: \n").strip()
 
-            if not test_name.isalpha():
-                print("please enter a valid test name\n")
+            if not InputValidator.is_test_number_valid(test_number):
+                print("please enter a valid test number\n")
                 continue
 
-            if test_name in Test_type.types:
-                print("Test already exists in medicalTest.txt. Enter another name\n")
-                continue
+            test = Test_type.types[list_key[int(test_number) - 1]]
 
-            test_lower_bound = input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip()
-            test_upper_bound = input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip()
+            for attr, value in test.__dict__.items():
+                while True:
+                    new_value = input(f"Current {attr}: {value} | Enter new value or press Enter to skip: ").strip()
+                    if not new_value:  # If the user presses Enter without input, skip the attribute
+                        break
+                    try:
+                        # Validate the input using the corresponding validation function
+                        validated_value = Test_type.validation_map[attr](new_value)
+                        setattr(test, attr, validated_value)  # Update the attribute
+                        break  # Exit the loop if input is valid
+                    except ValueError as e:
+                        print(f"Invalid input for {attr}: {e}")
+                        retry = input("Would you like to retry? (y/n): ").strip().lower()
+                        if retry != 'y':
+                            break  # Exit the loop if the user chooses not to retry
 
-            if (not Utilities.isfloat(test_lower_bound)) or (not Utilities.isfloat(test_upper_bound)):
-                print("your test should have valid floating point bounds\n")
-                continue
-
-            if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
-                print("you should input at least one bound\n")
-                continue
-
-            if not Utilities.are_bounds_consistent(test_lower_bound, test_upper_bound):
-                print("The lower bound should be less than the upper bound\n")
-
-            test_unit = input("Enter test unit: \n").strip()
-
-            if not test_name.isalpha():
-                print("please enter a test unit\n")
-                continue
-
-            test_period = input("Enter test period in the format days-hours-minutes (dd-hh-mm): \n").strip()
-
-            if not Utilities.is_period_valid(test_period):
-                print("please enter a valid test period\n")
-                continue
-
-            days = test_period.split('-')[0].strip()
-            hours = test_period.split('-')[1].strip()
-            minutes = test_period.split('-')[2].strip()
-
-            file_input_string = ''
-            if (test_lower_bound != '-1' and test_upper_bound != '-1'):
-                file_input_string = \
-                    f"\n{test_name};>{test_lower_bound},<{test_upper_bound};{test_unit};{test_period}\n"
-                new_test = Test_type(name=test_name, range1=test_lower_bound, range2=test_upper_bound, unit=test_unit,
-                                     period=(days, hours, minutes))
-
-            elif test_lower_bound == '-1':
-                file_input_string = f"\n{test_name};<{test_upper_bound};{test_unit};{test_period}\n"
-                new_test = Test_type(name=test_name, range2=test_upper_bound, unit=test_unit,
-                                     period=(days, hours, minutes))
-            else:
-                file_input_string = f"\n{test_name};>{test_lower_bound};{test_unit};{test_period}\n"
-                new_test = Test_type(name=test_name, range1=test_lower_bound, unit=test_unit,
-                                     period=(days, hours, minutes))
-
-            record_file = open('medicalTest.txt', 'a')
-            record_file.write(file_input_string)
-            record_file.close()
-
-            Test_type.types[test_name] = new_test
             access = True
 
     @staticmethod
-    def insert_medical_record():
+    def update_medical_record():
         test_status_list = ["Pending", "Completed", "Reviewed"]
         access = False
 

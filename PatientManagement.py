@@ -1,6 +1,7 @@
 from InsertionHandler import InsertionHandler
+from UpdateHandler import UpdateHandler
 from Patient import *
-from Test import *
+from Test_type import *
 from Utilities import Utilities
 
 
@@ -59,6 +60,9 @@ def main():
         elif option == 2:
             InsertionHandler.insert_medical_record()
             print("Record successfully added.\n")
+
+        elif option == 4:
+            UpdateHandler.update_medical_test()
 
         elif option == 5:
             print("""Enter one or a combination of these conditions:
