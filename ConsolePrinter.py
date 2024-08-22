@@ -14,3 +14,9 @@ class ConsolePrinter:
 
         for count, test_name in enumerate(Test_type.types.keys()):
             print(f"{count+1}) {test_name}")
+
+    @staticmethod
+    def print_test_file():
+        for count, test in enumerate(Test_type.types.values()):
+            print(f"{count+1}) {test}")
+

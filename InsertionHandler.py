@@ -54,22 +54,19 @@ class InsertionHandler:
 
             file_input_string = ''
             if (test_lower_bound != '-1' and test_upper_bound != '-1'):
-                file_input_string = \
-                    f"\n{test_name};>{test_lower_bound},<{test_upper_bound};{test_unit};{test_period}\n"
+
                 new_test = Test_type(name=test_name, range1=test_lower_bound, range2=test_upper_bound, unit=test_unit,
                                      period=(days, hours, minutes))
 
             elif test_lower_bound == '-1':
-                file_input_string = f"\n{test_name};<{test_upper_bound};{test_unit};{test_period}\n"
                 new_test = Test_type(name=test_name, range2=test_upper_bound, unit=test_unit,
                                      period=(days, hours, minutes))
             else:
-                file_input_string = f"\n{test_name};>{test_lower_bound};{test_unit};{test_period}\n"
                 new_test = Test_type(name=test_name, range1=test_lower_bound, unit=test_unit,
                                      period=(days, hours, minutes))
 
             record_file = open('medicalTest.txt', 'a')
-            record_file.write(file_input_string)
+            record_file.write(str(new_test))
             record_file.close()
 
             Test_type.types[test_name] = new_test

@@ -10,9 +10,12 @@ class InsertionHandler:
 
     @staticmethod
     def insert_medical_test():
+
+        list_key = list(Test_type.types.keys())
+
         access = False
         while not access:
-            test_name = input("Enter test name: \n").strip()
+            test_number = input("Enter test line number: \n").strip()
 
             if not test_name.isalpha():
                 print("please enter a valid test name\n")
