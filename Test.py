@@ -1,7 +1,4 @@
 import datetime
-from copy import copy, deepcopy
-from venv import create
-
 from Test_type import Test_type
 
 
@@ -21,9 +18,9 @@ class Test:
             raise Exception('Invalid status : ' + status)
 
     def __str__(self):
-        test =  f"%s, %s, %f, %s, %s" % (self.name, self.date_start, self.result, self.unit, self.status)
+        test =  f"%s, %s, %.1f, %s, %s" % (self.name, self.date_start.strftime("%Y-%m-%d %H:%M"), self.result, self.unit, self.status)
         if self.status.lower() == 'completed':
-            test += f", %s" % self.date_end
+            test += f", %s" % self.date_end.strftime("%Y-%m-%d %H:%M")
         return test
 
 

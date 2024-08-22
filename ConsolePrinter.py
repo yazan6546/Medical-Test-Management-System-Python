@@ -1,3 +1,4 @@
+from Patient import Patient
 from Test_type import Test_type
 
 
@@ -19,4 +20,9 @@ class ConsolePrinter:
     def print_test_file():
         for count, test in enumerate(Test_type.types.values()):
             print(f"{count+1}) {test}")
+
+    @staticmethod
+    def print_record_file():
+        for count, patient in enumerate(Patient.patients.values()):
+            print(f"{count+1}) {patient}")
 

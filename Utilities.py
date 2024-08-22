@@ -33,7 +33,7 @@ class Utilities:
         lower_bound = float(lower_bound)
         upper_bound = float(upper_bound)
         if lower_bound > upper_bound:
-            return False
+            raise ValueError("Lower bound should be less than upper bound.")
         return True
 
 
