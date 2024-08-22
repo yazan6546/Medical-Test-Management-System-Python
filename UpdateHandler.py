@@ -27,9 +27,10 @@ class UpdateHandler:
                 print(f"Error: {e}")
 
             test = Test_type.types[list_key[int(test_number) - 1]]
-
+            print(test.__dict__.items())
             for attr, value in test.__dict__.items():
                 while True:
+                    attr = str(attr).replace("_Test_type__", "")
                     new_value = input(f"Current {attr}: {value} | Enter new value or press Enter to skip: ").strip()
                     if not new_value:  # If the user presses Enter without input, skip the attribute
                         break

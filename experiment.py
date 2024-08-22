@@ -6,5 +6,3 @@ from Patient import Patient
 from Test_type import Test_type
 
 
-Patient.import_records()
-ConsolePrinter.print_record_file()

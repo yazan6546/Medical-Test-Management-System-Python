@@ -29,7 +29,7 @@ class Test_type:
             raise Exception("You must specify either range1 or range2")
 
         self.__period = period
-        self.unit = unit
+        self.__unit = unit
         self.__name = name
 
     @property
@@ -49,6 +49,7 @@ class Test_type:
     @period.setter
     def period(self, value):
         Utilities.is_period_valid(value)
+        print("ok")
         self.__period = value
 
     @property
@@ -69,6 +70,16 @@ class Test_type:
     def range2(self, value):
         float(value)
         self.__range2 = value
+
+    @property
+    def unit(self):
+        return self.__unit
+
+    @unit.setter
+    def unit(self, value):
+        if not str(value).isalpha():
+            raise ValueError("You must specify a valid unit")
+        self.__unit = value
 
 
     def __str__(self):
