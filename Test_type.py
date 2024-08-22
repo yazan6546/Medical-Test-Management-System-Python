@@ -17,7 +17,7 @@ class Test_type:
     @staticmethod
     def import_tests():
 
-        # clear the dictionary to avoid duplicates
+        # clear the dictionary to avoid duplicates and outdated data
         Test_type.types.clear()
 
         # Read the entire file into a string
