@@ -47,20 +47,25 @@ class UpdateHandler:
 
     @staticmethod
     def update_medical_record():
-        list_key = list(Test_type.types.keys())
 
         access = False
         while not access:
 
-            record_num = ConsolePrinter.print_record_file() - 1
-            print()
-            test_number = input("Enter record line number: \n").strip()
+            ConsolePrinter.print_record_file()
+            test_id = input("Enter the ID that you want a test of:\n").strip()
             try:
-                InputValidator.is_test_name_valid(test_number, record_num)
+                InputValidator.is_patient_id_exist(test_id, Patient.patients)
+                patient = Patient.patients[test_id]
+
+                # Print the numbered patient tests
+                print(patient)
+                record_num = input("Enter the line number of the record:\n").strip()
+                InputValidator.is_test_number_valid(record_num, patient.get_test_numbers())
+                test = patient.get_test(int(record_num) - 1)
+
             except ValueError as e:
                 print(f"Error: {e}")
-
-            test = Test_type.types[list_key[int(test_number) - 1]]
+                continue
 
             for attr, value in test.__dict__.items():
                 while True:

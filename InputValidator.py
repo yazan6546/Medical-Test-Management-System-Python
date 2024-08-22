@@ -9,6 +9,11 @@ class InputValidator:
             raise ValueError("Patient ID is invalid")
 
     @staticmethod
+    def is_patient_id_exist(patient_id, dict):
+        if patient_id not in dict:
+            raise ValueError("Patient ID is non-existent")
+
+    @staticmethod
     def is_test_name_valid(test_name, types):
         if  test_name not in types:
             raise ValueError("Test name is invalid")

@@ -1,3 +1,4 @@
+from InputValidator import InputValidator
 from Test import *
 
 class Patient:
@@ -5,9 +6,18 @@ class Patient:
     patients = {}
 
     def __init__(self, id):
+        self.__id = None
         self.__tests = []
         self.id = id
 
+    @property
+    def id(self):
+        return self.__id
+
+    @id.setter
+    def id(self, id):
+        InputValidator.is_patient_id_valid(id)
+        self.__id = id
 
     def add_test(self, test):
         self.__tests.append(test)
@@ -21,8 +31,11 @@ class Patient:
     def get_test(self, index):
         return self.__tests[index]
 
+    def get_test_numbers(self):
+        return len(self.__tests)
+
     def __str__(self):
-        return '\n'.join(map(lambda x : f"{x[0]}) {self.id}: {str(x[1])}", enumerate(self.__tests)))
+        return '\n'.join(map(lambda x : f"{x[0] + 1}) {self.id}: {str(x[1])}", enumerate(self.__tests)))
 
     def print_patients_with_numbering(self, start_number=1):
         # Use map to create the lines with numbering

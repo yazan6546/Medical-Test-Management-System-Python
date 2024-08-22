@@ -7,15 +7,6 @@ from Utilities import Utilities
 class Test_type:
 
     types = {}
-
-    # Validation map for error handling
-    validation_map = {
-        'name': InputValidator.is_test_name_valid,
-        'period': Utilities.is_period_valid,
-        'range1': Utilities.isfloat,
-        'range2': Utilities.isfloat,
-    }
-
     def __init__(self, unit, period, name, range1=None, range2=None):
 
         self.__range1 = None

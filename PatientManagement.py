@@ -75,6 +75,10 @@ def main():
             InsertionHandler.insert_medical_record()
             print("Record successfully added.\n")
 
+        elif option == 5:
+            UpdateHandler.update_medical_record()
+            print("Test successfully updated.\n")
+
         elif option == 6:
             UpdateHandler.update_medical_test()
             print("Test successfully updated.\n")
