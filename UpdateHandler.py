@@ -21,7 +21,7 @@ class UpdateHandler:
 
             test_number = input("Enter test line number: \n").strip()
 
-            if not InputValidator.is_test_number_valid(test_number):
+            if not InputValidator.is_test_number_valid(test_number, Test_type.types):
                 print("please enter a valid test number\n")
                 continue
 

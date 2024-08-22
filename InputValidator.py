@@ -1,5 +1,4 @@
 from datetime import datetime
-from Test_type import Test_type
 
 
 class InputValidator:

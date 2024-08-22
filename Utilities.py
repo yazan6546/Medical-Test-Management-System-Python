@@ -7,8 +7,7 @@ class Utilities:
         try:
             float(num)
         except ValueError:
-            return False
-        return True
+            raise ValueError("Invalid floating point number.")
 
     @staticmethod
     def is_period_valid(period):

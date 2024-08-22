@@ -53,7 +53,7 @@ class InsertionHandler:
             minutes = test_period.split('-')[2].strip()
 
             file_input_string = ''
-            if (test_lower_bound != '-1' and test_upper_bound != '-1'):
+            if test_lower_bound != '-1' and test_upper_bound != '-1':
 
                 new_test = Test_type(name=test_name, range1=test_lower_bound, range2=test_upper_bound, unit=test_unit,
                                      period=(days, hours, minutes))
@@ -78,48 +78,35 @@ class InsertionHandler:
         access = False
 
         while not access:
-            patient_id = input("Enter patient patient ID: \n").strip()
 
-            if not InputValidator.is_patient_id_valid(patient_id):
-                print("enter a valid patient ID \n")
+            try:
+                patient_id = input("Enter patient patient ID: \n").strip()
+                InputValidator.is_patient_id_valid(patient_id)
+                ConsolePrinter.print_test_names()
+                print()
+                test_name = input("Enter the test you want:\n").strip()
+                InputValidator.is_test_name_valid(test_name, Test_type.types)
+                test_result = input("Enter test result: \n").strip()
+                Utilities.isfloat(test_result)
+                ConsolePrinter.print_available_test_states()
+                print()
+
+                test_status_number = input("Enter test status number from the list above:\n").strip()
+                InputValidator.is_test_status_number_valid(test_status_number)
+
+                test_date_start = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
+                test_date_end = None
+                InputValidator.is_date_time_valid(test_date_start)
+
+                test_status = test_status_list[int(test_status_number) - 1]
+
+                if test_status == "Completed":
+                    test_date_end = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
+                    InputValidator.is_date_time_valid(test_date_end)
+
+            except ValueError as e:
+                print(f"Error : {e}. Try again.")
                 continue
-
-            ConsolePrinter.print_test_names()
-            print()
-
-            test_name = input("Enter the test you want:\n").strip()
-
-            if not InputValidator.is_test_name_valid(test_name, Test_type.types):
-                print("enter a valid test name \n")
-                continue
-
-            test_result = input("Enter test result: \n").strip()
-
-            if not Utilities.isfloat(test_result):
-                print("enter a valid floating point test result \n")
-                continue
-
-            ConsolePrinter.print_available_test_states()
-
-            test_status_number = input("Enter test status number from the list above:\n").strip()
-            if not InputValidator.is_test_status_number_valid(test_status_number):
-                print("enter a valid test status number \n")
-                continue
-
-            test_date_start = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
-            test_date_end = None
-
-            if not InputValidator.is_date_time_valid(test_date_start):
-                print("enter a valid test date and time \n")
-                continue
-
-            test_status = test_status_list[int(test_status_number) - 1]
-
-            if test_status == "Completed":
-                test_date_end = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
-                if not InputValidator.is_date_time_valid(test_date_end):
-                    print("enter a valid test date and time \n")
-                    continue
 
 
             # add the new patient into the dictionary
@@ -128,7 +115,8 @@ class InsertionHandler:
                 Patient.patients[patient_id] = patient
 
             test_unit = Test_type.types[test_name].unit
-            test = Test(name=test_name, unit=test_unit, status=test_status, result=test_result, date_start=test_date_start, date_end=test_date_end)
+            test = Test(name=test_name, unit=test_unit, status=test_status, result=test_result,
+                        date_start=test_date_start, date_end=test_date_end)
             Patient.patients[patient_id].add_test(test)
 
             record_file = open('medicalRecord.txt', 'a')
