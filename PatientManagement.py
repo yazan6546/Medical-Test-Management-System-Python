@@ -49,10 +49,12 @@ def main():
     while True:
 
         show_menu()
+        Test_type.import_tests()
         option = int(input("\nChoose your option.\n\n"))
 
         if option == 1:
             InsertionHandler.insert_medical_test()
+            print("Test successfully added.\n")
         elif option == 2:
             InsertionHandler.insert_medical_record()
 
