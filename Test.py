@@ -55,8 +55,6 @@ class Test:
         date = datetime.datetime.strptime(date_string, '%Y-%m-%d %H:%M')
         return date
 
-
-
     def is_abnormal(self):
         range1 = Test_type.types[self.name].range1 # get the normal range of this test
         range2 = Test_type.types[self.name].range2

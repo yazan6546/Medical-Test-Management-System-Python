@@ -1,8 +1,9 @@
 from Patient import *
 from Test import *
+from Utilities import Utilities
+
 
 def filter_tests(conditions):
-
     tests = Patient.patients
     if len(conditions) > 6:
         raise Exception("Too many conditions")
@@ -15,26 +16,19 @@ def filter_tests(conditions):
             tests = tests[id].tests
         elif i == 1:
             name = input("Enter Patient Name: \n")
-            tests = list(filter(lambda x : x.name == name, tests))
+            tests = list(filter(lambda x: x.name == name, tests))
         elif i == 2:
-            tests = list(filter(lambda test : test.is_abnormal, tests))
+            tests = list(filter(lambda test: test.is_abnormal, tests))
         elif i == 3:
             start = input("Enter Start Date in this format : %Y-%m-%d %H:%M\n")
             start = Test.create_date(start)
             end = input("Enter End Date in this format: %Y-%m-%d %H:%M\n")
             end = Test.create_date(end)
-            tests = list(filter(lambda test : start < test.date_start < end, tests))
+            tests = list(filter(lambda test: start < test.date_start < end, tests))
 
         elif i == 4:
             status = input("Enter test Status: \n")
-            tests = list(filter(lambda test : test.status == status, tests))
-
-
-
-
-
-
-
+            tests = list(filter(lambda test: test.status == status, tests))
 
 
 def show_menu():
@@ -51,7 +45,6 @@ def show_menu():
 
 
 def main():
-
     while True:
 
         show_menu()
@@ -71,11 +64,9 @@ def main():
 6• Test turnaround time within a period (minimum and maximum turnaround time)\n""")
 
             print("Enter conditions in this format : 1, 2, ...")
-            conditions=input().split()
+            conditions = input().split()
             filter_tests(conditions)
 
 
-
 if __name__ == '__main__':
-
     main()
