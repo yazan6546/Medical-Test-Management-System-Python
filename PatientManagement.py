@@ -51,11 +51,11 @@ def show_menu():
 
 def main():
 
+    Test_type.import_tests()
+    Patient.import_records()
 
     while True:
 
-        Test_type.import_tests()
-        Patient.import_records()
         show_menu()
         option = int(input("\nChoose your option.\n\n"))
 
@@ -77,6 +77,7 @@ def main():
 
         elif option == 6:
             UpdateHandler.update_medical_test()
+            print("Test successfully updated.\n")
 
         elif option == 7:
             print("""Enter one or a combination of these conditions:

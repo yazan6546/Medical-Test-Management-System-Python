@@ -1,4 +1,4 @@
-from urllib.request import URLopener
+
 
 from InputValidator import InputValidator
 from Utilities import Utilities
@@ -28,6 +28,54 @@ class Test_type:
         self.unit = unit
         self.name = name
 
+    @property
+    def name(self):
+        return self.name
+
+    @name.setter
+    def name(self, value):
+        try:
+            InputValidator.is_test_name_valid(value, Test_type.types)
+            self.name = value
+        except ValueError as e:
+            print(f"Error : {e}")
+
+    @property
+    def period(self):
+        return self.period
+
+    @period.setter
+    def period(self, value):
+        try:
+            Utilities.is_period_valid(value)
+            self.period = value
+        except ValueError as e:
+            print(f"Error : {e}")
+
+    @property
+    def range1(self):
+        return self.range1
+
+    @range1.setter
+    def range1(self, value):
+        try:
+            float(value)
+            self.range1 = value
+        except ValueError as e:
+            print(f"Error : {e}")
+
+    @property
+    def range2(self):
+        return self.range2
+
+    @range2.setter
+    def range2(self, value):
+        try:
+            float(value)
+            self.range1 = value
+        except ValueError as e:
+            print(f"Error : {e}")
+
 
     def __str__(self):
 
@@ -39,7 +87,7 @@ class Test_type:
         elif not hasattr(self, 'range2'):
             test += f">%.1f;" % self.range1
 
-        test += f"%s;%s-%s-%s" % (self.unit, (self.period[0]), (self.period[1]), (self.period[2]))
+        test += f"%s;%s" % (self.unit, self.period)
 
         return test
 
@@ -68,21 +116,18 @@ class Test_type:
             unit = columns[2].strip()
             period = columns[3].strip()
 
-            days = period.split('-')[0].strip()
-            hours = period.split('-')[1].strip()
-            minutes = period.split('-')[2].strip()
 
             ranges = range.split(',')
             if len(ranges) == 2:
                 range1 = ranges[0][1::]
                 range2 = ranges[1][1::]
-                Test_type.types[name] = Test_type(range1=range1, unit=unit, range2=range2, period=(days, minutes, hours), name=name)
+                Test_type.types[name] = Test_type(range1=range1, unit=unit, range2=range2, period=period, name=name)
             elif len(ranges) == 1 and ranges[0][0] == '>':
                 range1 = ranges[0][1::]
-                Test_type.types[name] = Test_type(range1=range1, unit=unit, period=(days, minutes, hours), name=name)
+                Test_type.types[name] = Test_type(range1=range1, unit=unit, period=period, name=name)
             elif len(ranges) == 1 and ranges[0][0] == '<':
                 range2 = ranges[0][1::]
-                Test_type.types[name] = Test_type(range2=range2, unit=unit, period=(days, minutes, hours), name=name)
+                Test_type.types[name] = Test_type(range2=range2, unit=unit, period=period, name=name)
 
             else:
                 raise Exception('Wrong number of ranges')
