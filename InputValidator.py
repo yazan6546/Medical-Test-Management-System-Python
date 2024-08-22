@@ -18,6 +18,11 @@ class InputValidator:
         if not test_number.isnumeric() or not 1 <= int(test_number) <= len(types):
             raise ValueError("Test number is invalid")
 
+    @staticmethod
+    def is_test_record_number_valid(test_number, record_numbers):
+        if not test_number.isnumeric() or not 1 <= int(test_number) <= record_numbers:
+            raise ValueError("Test number is invalid")
+
 
     @staticmethod
     def is_date_time_valid(date_time):

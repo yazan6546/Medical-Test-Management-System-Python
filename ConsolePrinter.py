@@ -27,3 +27,5 @@ class ConsolePrinter:
         for patient in Patient.patients.values():
             number = patient.print_patients_with_numbering(number)
 
+        return number
+
