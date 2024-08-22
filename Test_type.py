@@ -53,7 +53,7 @@ class Test_type:
 
     @property
     def range1(self):
-        return self.__range1
+        return float(self.__range1)
 
     @range1.setter
     def range1(self, value):
@@ -63,22 +63,22 @@ class Test_type:
 
     @property
     def range2(self):
-        return self.__range2
+        return float(self.__range2)
 
     @range2.setter
     def range2(self, value):
         float(value)
-        self.__range1 = value
+        self.__range2 = value
 
 
     def __str__(self):
 
         test = f"%s;" % self.name
-        if hasattr(self, 'range1') and hasattr(self, 'range2'):
-            test += f">%.1f,<%.1f;" % (self.range1, self.range2)
-        elif not hasattr(self, 'range1'):
+        if self.__range1 is not None and self.__range2 is not None:
+            test += f">%.1f,<%.1f;" % (float(self.range1), float(self.range2))
+        elif self.__range1 is None:
             test += f"<%.1f; " % self.range2
-        elif not hasattr(self, 'range2'):
+        elif self.__range2 is None:
             test += f">%.1f;" % self.range1
 
         test += f"%s;%s" % (self.unit, self.period)
