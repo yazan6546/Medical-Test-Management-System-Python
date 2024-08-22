@@ -48,22 +48,18 @@ class InsertionHandler:
                 print("please enter a valid test period\n")
                 continue
 
-            days = test_period.split('-')[0].strip()
-            hours = test_period.split('-')[1].strip()
-            minutes = test_period.split('-')[2].strip()
-
             file_input_string = ''
             if test_lower_bound != '-1' and test_upper_bound != '-1':
 
                 new_test = Test_type(name=test_name, range1=test_lower_bound, range2=test_upper_bound, unit=test_unit,
-                                     period=(days, hours, minutes))
+                                     period=test_period)
 
             elif test_lower_bound == '-1':
                 new_test = Test_type(name=test_name, range2=test_upper_bound, unit=test_unit,
-                                     period=(days, hours, minutes))
+                                     period=test_period)
             else:
                 new_test = Test_type(name=test_name, range1=test_lower_bound, unit=test_unit,
-                                     period=(days, hours, minutes))
+                                     period=test_period)
 
             record_file = open('medicalTest.txt', 'a')
             record_file.write(str(new_test))

@@ -1,3 +1,4 @@
+from ConsolePrinter import ConsolePrinter
 from InsertionHandler import InsertionHandler
 from UpdateHandler import UpdateHandler
 from Patient import *
@@ -36,35 +37,48 @@ def filter_tests(conditions):
 def show_menu():
     print("""--------Medical Test Management System-------
 
-1• Add new medical test.
-2• Add a new medical test record.
-3• Update patient records including all fields.
-4• Update medical tests in the medicalTest file.
-5• Filter medical tests based on multiple conditions.
-6• Generate textual summary reports.
-7• Export medical records to a comma separated file.
-8• Import medical records from a comma separated file.""")
+1• Print all Medical Tests.
+2• Print all Medical Test Records.
+3• Add new medical test.
+4• Add a new medical test record.
+5• Update patient records including all fields.
+6• Update medical tests in the medicalTest file.
+7• Filter medical tests based on multiple conditions.
+8• Generate textual summary reports.
+9• Export medical records to a comma separated file.
+10• Import medical records from a comma separated file.""")
 
 
 def main():
+
+
     while True:
 
-        show_menu()
         Test_type.import_tests()
+        Patient.import_records()
+        show_menu()
         option = int(input("\nChoose your option.\n\n"))
 
         if option == 1:
+            ConsolePrinter.print_test_file()
+            print()
+
+        if option == 2:
+            ConsolePrinter.print_record_file()
+            print()
+
+        if option == 3:
             InsertionHandler.insert_medical_test()
             print("Test successfully added.\n")
 
-        elif option == 2:
+        elif option == 4:
             InsertionHandler.insert_medical_record()
             print("Record successfully added.\n")
 
-        elif option == 4:
+        elif option == 6:
             UpdateHandler.update_medical_test()
 
-        elif option == 5:
+        elif option == 7:
             print("""Enter one or a combination of these conditions:
             
 1• Patient ID, 

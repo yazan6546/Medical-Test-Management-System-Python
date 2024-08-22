@@ -39,6 +39,8 @@ class Patient:
 
     @staticmethod
     def import_records():
+
+        Patient.patients.clear()
         # Read the entire file into a string
         with open('medicalRecord.txt', 'r') as file:
             content = file.read()
