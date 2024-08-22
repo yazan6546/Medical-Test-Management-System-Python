@@ -1,7 +1,9 @@
+from Test import Test
 from ConsolePrinter import ConsolePrinter
 from InputValidator import InputValidator
 from Test_type import Test_type
 from Utilities import Utilities
+from Patient import Patient
 
 
 class InsertionHandler:
@@ -53,15 +55,18 @@ class InsertionHandler:
             file_input_string = ''
             if (test_lower_bound != '-1' and test_upper_bound != '-1'):
                 file_input_string = \
-                f"\n{test_name};>{test_lower_bound},<{test_upper_bound};{test_unit};{test_period}\n"
-                new_test = Test_type(name=test_name, range1=test_lower_bound, range2=test_upper_bound, unit=test_unit, period=(days, hours, minutes))
+                    f"\n{test_name};>{test_lower_bound},<{test_upper_bound};{test_unit};{test_period}\n"
+                new_test = Test_type(name=test_name, range1=test_lower_bound, range2=test_upper_bound, unit=test_unit,
+                                     period=(days, hours, minutes))
 
             elif test_lower_bound == '-1':
                 file_input_string = f"\n{test_name};<{test_upper_bound};{test_unit};{test_period}\n"
-                new_test = Test_type(name=test_name, range2=test_upper_bound, unit=test_unit, period=(days, hours, minutes))
+                new_test = Test_type(name=test_name, range2=test_upper_bound, unit=test_unit,
+                                     period=(days, hours, minutes))
             else:
                 file_input_string = f"\n{test_name};>{test_lower_bound};{test_unit};{test_period}\n"
-                new_test = Test_type(name=test_name, range1=test_lower_bound, unit=test_unit, period=(days, hours, minutes))
+                new_test = Test_type(name=test_name, range1=test_lower_bound, unit=test_unit,
+                                     period=(days, hours, minutes))
 
             record_file = open('medicalTest.txt', 'a')
             record_file.write(file_input_string)
@@ -70,9 +75,9 @@ class InsertionHandler:
             Test_type.types[test_name] = new_test
             access = True
 
-
     @staticmethod
     def insert_medical_record():
+        test_status_list = ["Pending", "Completed", "Reviewed"]
         access = False
 
         while not access:
@@ -91,12 +96,6 @@ class InsertionHandler:
                 print("enter a valid test number \n")
                 continue
 
-            test_date_time = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
-
-            if not InputValidator.is_date_time_valid(test_date_time):
-                print("enter a valid test date and time \n")
-                continue
-
             test_result = input("Enter test result: \n").strip()
 
             if not Utilities.isfloat(test_result):
@@ -110,14 +109,39 @@ class InsertionHandler:
                 print("enter a valid test status number \n")
                 continue
 
+            test_date_start = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
+            test_date_end = None
+
+            if not InputValidator.is_date_time_valid(test_date_start):
+                print("enter a valid test date and time \n")
+                continue
+
+            test_status = test_status_list[int(test_status_number) - 1]
+
+            if test_status == "Completed":
+                test_date_end = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
+                if not InputValidator.is_date_time_valid(test_date_end):
+                    print("enter a valid test date and time \n")
+                    continue
+
+
+            # add the new patient into the dictionary
+            if patient_id not in Patient.patients:
+                patient = Patient(id=patient_id)
+                Patient.patients[id] = patient
+
+            test_name = Test_type.types[int(test_name_number) - 1].name
+            test_unit = Test_type.types[int(test_name_number) - 1].unit
+            test = Test(name=test_name, unit=test_unit, status=test_status, result=test_result, date_start=test_date_start, date_end=test_date_end)
+            Patient.patients[patient_id].add_test(test)
+
+            record_file = open('medicalRecord.txt', 'a')
+            record_file.write(f"{patient_id}: {str(test)}")
+            record_file.close()
+
             # access = True
             # test_name = tests_list.split("- ")[int(test_status_number)][1]
             # test_status = test_states_list("- ")[int(test_status_number)][1]
 
             #if test_status == "Completed":
-                    #continue from here
-
-
-
-
-
+            #continue from here
