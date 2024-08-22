@@ -23,6 +23,7 @@ class ConsolePrinter:
 
     @staticmethod
     def print_record_file():
-        for count, patient in enumerate(Patient.patients.values()):
-            print(f"{count+1}) {patient}")
+        number = 1
+        for patient in Patient.patients.values():
+            number = patient.print_patients_with_numbering(number)
 

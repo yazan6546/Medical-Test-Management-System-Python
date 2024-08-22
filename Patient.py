@@ -22,7 +22,20 @@ class Patient:
         return self.__tests[index]
 
     def __str__(self):
-        return '\n'.join(map(str,self.__tests))
+        return '\n'.join(map(lambda x : f"{self.id}: {str(x)}",self.__tests))
+
+    def print_patients_with_numbering(self, start_number=1):
+        # Use map to create the lines with numbering
+        numbered_lines = map(
+            lambda i_record: f"{start_number + i_record[0]}) {self.id}: {i_record[1]}",
+            enumerate(self.__tests)
+        )
+
+        # Join the lines and print
+        print("\n".join(numbered_lines))
+
+        # Return the next starting number
+        return start_number + len(self.__tests)
 
     @staticmethod
     def import_records():
