@@ -17,64 +17,58 @@ class Test_type:
     }
 
     def __init__(self, unit, period, name, range1=None, range2=None):
+
+        self.__range1 = None
+        self.__range2 = None
+
         if range1 is not None:
-            self.range1 = float(range1)
+            self.range1 = range1
         if range2 is not None:
-            self.range2 = float(range2)
+            self.range2 = range2
         if range1 is None and range2 is None:
             raise Exception("You must specify either range1 or range2")
 
-        self.period = period
+        self.__period = period
         self.unit = unit
-        self.name = name
+        self.__name = name
 
     @property
     def name(self):
-        return self.name
+        return self.__name
 
     @name.setter
     def name(self, value):
-        try:
-            InputValidator.is_test_name_valid(value, Test_type.types)
-            self.name = value
-        except ValueError as e:
-            print(f"Error : {e}")
+
+        InputValidator.is_test_name_valid(value, Test_type.types)
+        self.__name = value
 
     @property
     def period(self):
-        return self.period
+        return self.__period
 
     @period.setter
     def period(self, value):
-        try:
-            Utilities.is_period_valid(value)
-            self.period = value
-        except ValueError as e:
-            print(f"Error : {e}")
+        Utilities.is_period_valid(value)
+        self.__period = value
 
     @property
     def range1(self):
-        return self.range1
+        return self.__range1
 
     @range1.setter
     def range1(self, value):
-        try:
-            float(value)
-            self.range1 = value
-        except ValueError as e:
-            print(f"Error : {e}")
+        float(value)
+        self.__range1 = value
+
 
     @property
     def range2(self):
-        return self.range2
+        return self.__range2
 
     @range2.setter
     def range2(self, value):
-        try:
-            float(value)
-            self.range1 = value
-        except ValueError as e:
-            print(f"Error : {e}")
+        float(value)
+        self.__range1 = value
 
 
     def __str__(self):

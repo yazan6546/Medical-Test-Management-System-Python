@@ -35,16 +35,7 @@ class UpdateHandler:
                         break
                     try:
                         # Validate the input using the corresponding validation function
-
-                        if attr == 'name':
-                            validated_value = Test_type.validation_map[attr](new_value, Test_type.types)
-                        else:
-                            validated_value = Test_type.validation_map[attr](new_value)
-
-                        if attr == 'range2' and hasattr(Test_type, 'range1') :
-                            Utilities.are_bounds_consistent(test.range1, validated_value)
-
-                        setattr(test, attr, validated_value)  # Update the attribute
+                        setattr(test, attr, new_value)  # Update the attribute
                         break  # Exit the loop if input is valid
                     except ValueError as e:
                         print(f"Invalid input for {attr}: {e}")
