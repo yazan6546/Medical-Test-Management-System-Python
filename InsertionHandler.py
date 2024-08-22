@@ -10,29 +10,39 @@ class InsertionHandler:
         access = False
         while not access:
             test_name = input("Enter test name: \n")
+
+            if not test_name.isalpha():
+                print("please enter a valid test name\n")
+                continue
+
             test_lower_bound = input("Enter test lower bound, if no lower bound exists, enter -1: \n")
             test_upper_bound = input("Enter test upper bound: if no upper bound exists, enter -1: \n")
-            test_unit = input("Enter test unit: \n")
-            test_period = input("Enter test period in the format days-hours-minutes (dd-hh-mm): \n")
+
             if (not Utilities.isfloat(test_lower_bound)) or (not Utilities.isfloat(test_upper_bound)):
-                print("your test should include one range at least\n")
+                print("your test should have valid floating point bounds\n")
                 continue
 
             if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
                 print("you should input at least one bound\n")
                 continue
 
-            if test_name is None:
-                print("please enter a test name\n")
-                continue
+            if not Utilities.are_bounds_consistent(test_lower_bound, test_upper_bound):
+                print("The lower bound should be less than the upper bound\n")
 
-            if test_unit is None:
+            test_unit = input("Enter test unit: \n")
+
+            if not test_name.isalpha():
                 print("please enter a test unit\n")
                 continue
+
+            test_period = input("Enter test period in the format days-hours-minutes (dd-hh-mm): \n")
 
             if not Utilities.is_period_valid(test_period):
                 print("please enter a valid test period\n")
                 continue
+
+
+
 
             file_input_string = ''
             if (test_lower_bound != '-1' and test_upper_bound != '-1' and

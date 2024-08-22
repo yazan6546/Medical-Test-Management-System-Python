@@ -1,3 +1,4 @@
+from InsertionHandler import InsertionHandler
 from Patient import *
 from Test import *
 from Utilities import Utilities
@@ -51,9 +52,11 @@ def main():
         option = int(input("\nChoose your option.\n\n"))
 
         if option == 1:
-            continue
+            InsertionHandler.insert_medical_test()
+        elif option == 2:
+            InsertionHandler.insert_medical_record()
 
-        if option == 5:
+        elif option == 5:
             print("""Enter one or a combination of these conditions:
             
 1• Patient ID, 

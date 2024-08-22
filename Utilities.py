@@ -26,6 +26,10 @@ class Utilities:
 
     @staticmethod
     def are_bounds_consistent(lower_bound, upper_bound):
+
+        if lower_bound == -1 or upper_bound == -1:
+            return True
+
         lower_bound = float(lower_bound)
         upper_bound = float(upper_bound)
         if lower_bound > upper_bound:
