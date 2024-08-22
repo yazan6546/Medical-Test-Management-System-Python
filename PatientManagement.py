@@ -55,8 +55,10 @@ def main():
         if option == 1:
             InsertionHandler.insert_medical_test()
             print("Test successfully added.\n")
+
         elif option == 2:
             InsertionHandler.insert_medical_record()
+            print("Record successfully added.\n")
 
         elif option == 5:
             print("""Enter one or a combination of these conditions:

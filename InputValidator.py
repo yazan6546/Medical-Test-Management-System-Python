@@ -9,9 +9,8 @@ class InputValidator:
         return patient_id.isnumeric() and len(patient_id) == 7
 
     @staticmethod
-    def is_test_number_valid(test_number):
-        lines = len(Test_type.types)
-        return test_number.isnumeric() and int(test_number) <= lines
+    def is_test_name_valid(test_name):
+        return test_name in Test_type.types
 
     @staticmethod
     def is_date_time_valid(date_time):

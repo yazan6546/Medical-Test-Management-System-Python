@@ -90,10 +90,10 @@ class InsertionHandler:
             ConsolePrinter.print_test_names()
             print()
 
-            test_name_number = input("Enter the number of the test you want:\n").strip()
+            test_name = input("Enter the test you want:\n").strip()
 
-            if not InputValidator.is_test_number_valid(test_name_number):
-                print("enter a valid test number \n")
+            if not InputValidator.is_test_name_valid(test_name):
+                print("enter a valid test name \n")
                 continue
 
             test_result = input("Enter test result: \n").strip()
@@ -128,10 +128,9 @@ class InsertionHandler:
             # add the new patient into the dictionary
             if patient_id not in Patient.patients:
                 patient = Patient(id=patient_id)
-                Patient.patients[id] = patient
+                Patient.patients[patient_id] = patient
 
-            test_name = Test_type.types[int(test_name_number) - 1].name
-            test_unit = Test_type.types[int(test_name_number) - 1].unit
+            test_unit = Test_type.types[test_name].unit
             test = Test(name=test_name, unit=test_unit, status=test_status, result=test_result, date_start=test_date_start, date_end=test_date_end)
             Patient.patients[patient_id].add_test(test)
 
@@ -139,7 +138,7 @@ class InsertionHandler:
             record_file.write(f"{patient_id}: {str(test)}")
             record_file.close()
 
-            # access = True
+            access = True
             # test_name = tests_list.split("- ")[int(test_status_number)][1]
             # test_status = test_states_list("- ")[int(test_status_number)][1]
 
