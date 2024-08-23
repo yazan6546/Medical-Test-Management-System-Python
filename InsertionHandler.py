@@ -2,7 +2,6 @@ from Test import Test
 from ConsolePrinter import ConsolePrinter
 from InputValidator import InputValidator
 from Test_type import Test_type
-from Utilities import Utilities
 from Patient import Patient
 
 
@@ -25,7 +24,7 @@ class InsertionHandler:
             test_lower_bound = input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip()
             test_upper_bound = input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip()
 
-            if (not Utilities.isfloat(test_lower_bound)) or (not Utilities.isfloat(test_upper_bound)):
+            if (not InputValidator.isfloat(test_lower_bound)) or (not InputValidator.isfloat(test_upper_bound)):
                 print("your test should have valid floating point bounds\n")
                 continue
 
@@ -33,7 +32,7 @@ class InsertionHandler:
                 print("you should input at least one bound\n")
                 continue
 
-            if not Utilities.are_bounds_consistent(test_lower_bound, test_upper_bound):
+            if not InputValidator.are_bounds_consistent(test_lower_bound, test_upper_bound):
                 print("The lower bound should be less than the upper bound\n")
 
             test_unit = input("Enter test unit: \n").strip()
@@ -44,7 +43,7 @@ class InsertionHandler:
 
             test_period = input("Enter test period in the format days-hours-minutes (dd-hh-mm): \n").strip()
 
-            if not Utilities.is_period_valid(test_period):
+            if not InputValidator.is_period_valid(test_period):
                 print("please enter a valid test period\n")
                 continue
 
@@ -83,7 +82,7 @@ class InsertionHandler:
                 test_name = input("Enter the test you want:\n").strip()
                 InputValidator.is_test_name_valid(test_name, Test_type.types)
                 test_result = input("Enter test result: \n").strip()
-                Utilities.isfloat(test_result)
+                InputValidator.isfloat(test_result)
                 ConsolePrinter.print_available_test_states()
                 print()
 
