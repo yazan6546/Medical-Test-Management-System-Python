@@ -1,7 +1,6 @@
 import re
 from datetime import datetime
 
-
 class InputValidator:
 
     @staticmethod
@@ -38,7 +37,7 @@ class InputValidator:
     @staticmethod
     def is_date_time_valid(date_time):
         date_time_format = '%Y-%m-%d %H:%M'
-        datetime.strptime(date_time, date_time_format)
+        date_time = datetime.strptime(date_time, date_time_format)
 
         if date_time > datetime.now():
             raise ValueError("Date cannot be in the future")

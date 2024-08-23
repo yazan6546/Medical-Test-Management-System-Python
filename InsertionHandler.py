@@ -30,7 +30,7 @@ class InsertionHandler:
                 InputValidator.are_bounds_consistent(test_lower_bound, test_upper_bound)
                 test_unit = input("Enter test unit: \n").strip()
 
-                if not test_unit.isnumeric():
+                if test_unit.isnumeric():
                     raise ValueError("Enter a valid test unit\n")
 
                 test_period = input("Enter test period in the format days-hours-minutes (dd-hh-mm): \n").strip()
