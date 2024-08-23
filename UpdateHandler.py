@@ -44,6 +44,10 @@ class UpdateHandler:
                             break  # Exit the loop if the user chooses not to retry
 
             print()
+
+            record_file = open('medicalTest.txt', 'a')
+            record_file.write(str(test))
+            record_file.close()
             access = True
 
     @staticmethod

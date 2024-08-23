@@ -20,6 +20,11 @@ class InputValidator:
             raise ValueError("Test name is invalid")
 
     @staticmethod
+    def is_test_name_exist(test_name, types):
+        if test_name in types:
+            raise ValueError("Test name already exist.")
+
+    @staticmethod
     def is_test_number_valid(test_number, types):
         if not test_number.isnumeric() or not 1 <= int(test_number) <= len(types):
             raise ValueError("Test number is invalid")
@@ -34,6 +39,9 @@ class InputValidator:
     def is_date_time_valid(date_time):
         date_time_format = '%Y-%m-%d %H:%M'
         datetime.strptime(date_time, date_time_format)
+
+        if date_time > datetime.now():
+            raise ValueError("Date cannot be in the future")
 
     @staticmethod
     def is_test_status_number_valid(test_status):

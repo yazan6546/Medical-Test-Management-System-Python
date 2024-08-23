@@ -11,22 +11,18 @@ class InsertionHandler:
     def insert_medical_test():
         access = False
         while not access:
+
+
             test_name = input("Enter test name: \n").strip()
 
             if not test_name.isalpha():
-                print("please enter a valid test name\n")
-                continue
+                raise ValueError("Test name must be alphanumeric")
 
-            if test_name in Test_type.types:
-                print("Test already exists in medicalTest.txt. Enter another name\n")
-                continue
+            InputValidator.is_test_name_exist(test_name, Test_type.types)
 
-            test_lower_bound = input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip()
-            test_upper_bound = input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip()
+            test_lower_bound = float(input("Enter test lower bound, if no lower bound exists, enter -1: \n")).strip()
+            test_upper_bound = float(input("Enter test upper bound: if no upper bound exists, enter -1: \n")).strip()
 
-            if (not InputValidator.isfloat(test_lower_bound)) or (not InputValidator.isfloat(test_upper_bound)):
-                print("your test should have valid floating point bounds\n")
-                continue
 
             if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
                 print("you should input at least one bound\n")
