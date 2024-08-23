@@ -1,5 +1,3 @@
-
-
 from InputValidator import InputValidator
 from Utilities import Utilities
 
@@ -40,7 +38,6 @@ class Test_type:
     @period.setter
     def period(self, value):
         Utilities.is_period_valid(value)
-        print("ok")
         self.__period = value
 
     @property
@@ -59,8 +56,7 @@ class Test_type:
 
     @range2.setter
     def range2(self, value):
-        float(value)
-        self.__range2 = value
+        self.__range2 = float(value)
 
     @property
     def unit(self):

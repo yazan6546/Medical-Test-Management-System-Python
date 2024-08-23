@@ -1,11 +1,7 @@
-from tkinter.constants import PROJECTING
-
-from Test import Test
 from ConsolePrinter import ConsolePrinter
 from InputValidator import InputValidator
-from Test_type import Test_type
-from Utilities import Utilities
 from Patient import Patient
+from Test_type import Test_type
 
 
 class UpdateHandler:
@@ -45,6 +41,7 @@ class UpdateHandler:
                         if retry != 'y':
                             break  # Exit the loop if the user chooses not to retry
 
+            print()
             access = True
 
     @staticmethod
@@ -70,9 +67,19 @@ class UpdateHandler:
                 continue
 
             for attr, value in test.__dict__.items():
+
+                # The unit is brought from Test types object
+                if attr == 'unit':
+                    continue
+
+                # Do not ask for date_end input if status is not completed
+                if test.status.lower != 'completed' and attr == '_Test__date_end':
+                    continue
+
                 while True:
                     attr = str(attr).replace("_Test__", "")
                     new_value = input(f"Current {attr}: {value} | Enter new value or press Enter to skip: ").strip()
+
                     if not new_value:  # If the user presses Enter without input, skip the attribute
                         break
                     try:
@@ -85,4 +92,5 @@ class UpdateHandler:
                         if retry != 'y':
                             break  # Exit the loop if the user chooses not to retry
 
+            print()
             access = True

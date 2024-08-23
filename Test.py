@@ -9,9 +9,9 @@ class Test:
     def __init__(self, name, status, unit, date_start, date_end=None, result=None):
         self.name = name
         self.status = status
-        self.date_start = date_start
         self.unit = unit
-        self.result = float(result)
+        self.result = result
+        self.date_start = date_start
 
         if status.lower() == 'completed':
             self.date_end = date_end
@@ -30,6 +30,7 @@ class Test:
     @name.setter
     def name(self, name):
         InputValidator.is_test_name_valid(name, Test_type.types)
+        self.unit = Test_type.types[name].unit
         self.__name = name
 
     @property
@@ -43,21 +44,29 @@ class Test:
 
     @property
     def date_start(self):
-        return self.date_start
+        return self.__date_start
 
     @date_start.setter
     def date_start(self, date_start):
         date = datetime.datetime.strptime(date_start, '%Y-%m-%d %H:%M')
-        self.date_start = date
+        self.__date_start = date
 
     @property
     def date_end(self):
-        return self.date_end
+        return self.__date_end
 
     @date_end.setter
     def date_end(self, date_end):
         date = datetime.datetime.strptime(date_end, '%Y-%m-%d %H:%M')
-        self.date_end = date
+        self.__date_end = date
+
+    @property
+    def result(self):
+        return self.__result
+
+    @result.setter
+    def result(self, result):
+        self.__result = float(result)
 
 
     @staticmethod
@@ -94,9 +103,5 @@ class Test:
             return self.result < range1
         elif range1 is None and range2 is not None:
             return self.result > range2
-
-    @status.setter
-    def status(self, value):
-        self._status = value
 
 
