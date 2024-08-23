@@ -12,49 +12,46 @@ class InsertionHandler:
         access = False
         while not access:
 
+            try:
+                test_name = input("Enter test name: \n").strip()
 
-            test_name = input("Enter test name: \n").strip()
+                if not test_name.isalpha():
+                    raise ValueError("Test name must be alphanumeric")
 
-            if not test_name.isalpha():
-                raise ValueError("Test name must be alphanumeric")
+                InputValidator.is_test_name_exist(test_name, Test_type.types)
 
-            InputValidator.is_test_name_exist(test_name, Test_type.types)
-
-            test_lower_bound = float(input("Enter test lower bound, if no lower bound exists, enter -1: \n")).strip()
-            test_upper_bound = float(input("Enter test upper bound: if no upper bound exists, enter -1: \n")).strip()
+                test_lower_bound = float(input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip())
+                test_upper_bound = float(input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip())
 
 
-            if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
-                print("you should input at least one bound\n")
+                if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
+                    raise ValueError("you should input at least one bound\n")
+
+                InputValidator.are_bounds_consistent(test_lower_bound, test_upper_bound)
+                test_unit = input("Enter test unit: \n").strip()
+
+                if not test_unit.isnumeric():
+                    raise ValueError("Enter a valid test unit\n")
+
+                test_period = input("Enter test period in the format days-hours-minutes (dd-hh-mm): \n").strip()
+
+                InputValidator.is_period_valid(test_period)
+
+            except ValueError as e:
+                print(f"Error : {e} \n")
                 continue
 
-            if not InputValidator.are_bounds_consistent(test_lower_bound, test_upper_bound):
-                print("The lower bound should be less than the upper bound\n")
-
-            test_unit = input("Enter test unit: \n").strip()
-
-            if not test_name.isalpha():
-                print("please enter a test unit\n")
-                continue
-
-            test_period = input("Enter test period in the format days-hours-minutes (dd-hh-mm): \n").strip()
-
-            if not InputValidator.is_period_valid(test_period):
-                print("please enter a valid test period\n")
-                continue
-
-            file_input_string = ''
             if test_lower_bound != '-1' and test_upper_bound != '-1':
 
                 new_test = Test_type(name=test_name, range1=test_lower_bound, range2=test_upper_bound, unit=test_unit,
-                                     period=test_period)
+                period=test_period)
 
             elif test_lower_bound == '-1':
                 new_test = Test_type(name=test_name, range2=test_upper_bound, unit=test_unit,
-                                     period=test_period)
+                                    period=test_period)
             else:
                 new_test = Test_type(name=test_name, range1=test_lower_bound, unit=test_unit,
-                                     period=test_period)
+                                    period=test_period)
 
             record_file = open('medicalTest.txt', 'a')
             record_file.write(str(new_test))
