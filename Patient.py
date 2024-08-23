@@ -101,10 +101,10 @@ class Patient:
         return array
 
     @staticmethod
-    def get_sum():
+    def get_sum(patients):
 
         summation = 0
-        for patient in Patient.patients.values():
+        for patient in patients:
             tests = patient.get_tests_list()
 
             summation += sum(list(map(lambda x: x.result, tests)))
@@ -112,9 +112,9 @@ class Patient:
         return summation
 
     @staticmethod
-    def get_record_num():
+    def get_record_num(patients):
         length = 0
-        for patient in Patient.patients.values():
+        for patient in patients:
             length += len(patient.get_tests_list())
 
         return length
@@ -124,9 +124,19 @@ class Patient:
         return test.result
 
     @staticmethod
-    def get_max_patients():
-        max_list = list(map(lambda patient : patient.get_max_tests(), Patient.patients.values()))
-        print(max_list)
+    def get_max_patients(patients):
+        max_list = list(map(lambda patient : patient.get_max_tests(), patients))
         return max(max_list)
+
+
+    def get_min_tests(self):
+        test = min(self.get_tests_list(), key=lambda test: test.result)
+        return test.result
+
+    @staticmethod
+    def get_min_patients(patients):
+        min_list = list(map(lambda patient: patient.get_max_tests(), patients))
+        return min(min_list)
+
 
 

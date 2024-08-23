@@ -134,16 +134,19 @@ def generate_report(conditions):
     patients = filter_tests(conditions)
     print_filtered_tests(patients)
 
-    summation = Patient.get_sum()
-    count = Patient.get_record_num()
+    summation = Patient.get_sum(patients)
+    count = Patient.get_record_num(patients)
     average = summation/count
+    min = Patient.get_min_patients(patients)
+    max = Patient.get_max_patients(patients)
 
-    print("**************** Summary Report ****************")
+    print("**************** Summary Report ****************\n")
 
+    print(f"Average : {average} ")
+    print(f"Min : {min} ")
+    print(f"Max : {max} ")
 
-
-
-
+    print()
 
 
 
@@ -189,6 +192,11 @@ def main():
             conditions = input("Enter conditions in this format : 1, 2, ...\n")
             patients = filter_tests(conditions)
             print_filtered_tests(patients)
+
+        elif option == 8:
+            ConsolePrinter.print_filter_menu()
+            conditions = input("Enter conditions in this format : 1, 2, ...\n")
+            generate_report(conditions)
 
 
 
