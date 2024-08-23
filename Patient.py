@@ -68,6 +68,14 @@ class Patient:
         return start_number + len(self.__tests)
 
     @staticmethod
+    def get_patients_without_numbering():
+        string = ""
+        for patient in Patient.patients.values():
+            string +=  '\n'.join(map(lambda x : f"{patient.id}: {str(x)}", enumerate(patient.get_tests_list())))
+            print(string)
+
+
+    @staticmethod
     def import_records():
 
         Patient.patients.clear()
