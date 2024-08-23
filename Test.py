@@ -79,6 +79,11 @@ class Test:
 
 
     @staticmethod
+    def create_date(date):
+        date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M')
+        return date
+
+    @staticmethod
     def create_test(record):
 
         array = record.split(',')

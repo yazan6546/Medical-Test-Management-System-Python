@@ -99,3 +99,15 @@ class Patient:
     def convert_to_array():
         array = [(i.id, i.__tests) for i in Patient.patients.values()]
         return array
+
+    @staticmethod
+    def get_sum():
+
+        summation = 0
+        for patient in Patient.patients.values():
+            tests = patient.get_tests_list()
+
+            summation += sum(list(map(lambda x: x.result, tests)))
+            print(summation)
+
+        return summation

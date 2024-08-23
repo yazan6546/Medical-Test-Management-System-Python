@@ -1,14 +1,17 @@
-from copy import deepcopy
+from datetime import timedelta
 
 import Patient
 from ConsolePrinter import ConsolePrinter
 from InsertionHandler import InsertionHandler
-from UpdateHandler import UpdateHandler
 from Patient import *
 from Test_type import *
-from Utilities import Utilities
+from UpdateHandler import UpdateHandler
 
 
+#
+# Function that returns a list of filtered patient objects given the
+# condition vector
+#
 def filter_tests(conditions):
 
     conditions = list(map(int, conditions.split(','))) # Convert the list of numeric strings to integers
@@ -22,9 +25,11 @@ def filter_tests(conditions):
     if len(conditions) > 6:
         raise Exception("Too many conditions")
 
-    invalid = True
-    while invalid:
-        if 1 in conditions:
+    if 1 in conditions:
+
+        invalid = True
+        while invalid:
+
             id = input("Enter Patient ID: \n")
             try:
                 InputValidator.is_patient_id_valid(id)
@@ -47,6 +52,8 @@ def filter_tests(conditions):
             filtered_dict[id] = tests
 
 
+
+
     # Get all abnormal tests
 
     if 3 in conditions:
@@ -54,14 +61,27 @@ def filter_tests(conditions):
             tests = list(filter(lambda test: test.is_abnormal(), tests))
             filtered_dict[id] = tests
 
-    if 4 in conditions:
-        start = input("Enter Start Date in this format : %Y-%m-%d %H:%M\n")
-        start = Test.create_date(start)
-        end = input("Enter End Date in this format: %Y-%m-%d %H:%M\n")
-        end = Test.create_date(end)
 
-        for id, tests in filtered_dict.items():
-            tests = list(filter(lambda test: start < test.date_start < end, tests))
+    if 4 in conditions:
+
+        invalid = True
+        while invalid:
+
+            try:
+                start = input("Enter Start Date in this format : %Y-%m-%d %H:%M\n")
+                start = Test.create_date(start)
+                end = input("Enter End Date in this format: %Y-%m-%d %H:%M\n")
+                end = Test.create_date(end)
+                invalid = False
+
+            except ValueError as e:
+                print(f"Error : {e}")
+                continue
+
+            for id, tests in filtered_dict.items():
+                tests = list(filter(lambda test: start < test.date_start < end, tests))
+                filtered_dict[id] = tests
+
 
     if 5 in conditions:
         status = input("Enter test Status: \n")
@@ -70,29 +90,57 @@ def filter_tests(conditions):
             tests = list(filter(lambda test: test.status == status, tests))
             filtered_dict[id] = tests
 
+    if 6 in conditions:
+        invalid = True
+        while invalid:
+
+            try:
+                min = input("Enter minimum turnaround time in this format : DD-HH-MM\n")
+                Utilities.is_period_valid(min)
+                days, hours, minutes = min.split('-')
+                time1 = timedelta(days=int(days),hours=int(hours), minutes=int(minutes))
+
+                max = input("Enter maximum turnaround time : DD-HH-MM\n")
+                Utilities.is_period_valid(max)
+                days, hours, minutes = max.split('-')
+                time2 = timedelta(days=int(days), hours=int(hours), minutes=int(minutes))
+                invalid = False
+
+            except ValueError as e:
+                print(f"Error : {e}")
+                continue
+
+            for id, tests in filtered_dict.items():
+
+                tests = list(filter(lambda test: test.status.lower() == 'completed'
+                                                 and time1 < test.date_end - test.date_start < time2, tests))
+                filtered_dict[id] = tests
+
 
     patients = list(map(lambda items : Patient(items[0], items[1]), filtered_dict.items()))
+
+    # Remove all patient objects with an empty list
+    patients = list(filter(lambda patient : len(patient.get_tests_list()) != 0, patients))
+    return patients
+
+
+def print_filtered_tests(patients):
 
     print("\n************ Tests that match the criteria ******************\n")
     ConsolePrinter.print_record_file(patients)
     print()
 
+def generate_report(conditions):
+    patients = filter_tests(conditions)
+    print_filtered_tests(patients)
+
+    print("**************** Summary Report ****************")
+
+    summation = sum(list( map(lambda x : x.result, patients)))
 
 
 
-def show_menu():
-    print("""--------Medical Test Management System-------
 
-1• Print all Medical Tests.
-2• Print all Medical Test Records.
-3• Add new medical test.
-4• Add a new medical test record.
-5• Update patient records including all fields.
-6• Update medical tests in the medicalTest file.
-7• Filter medical tests based on multiple conditions.
-8• Generate textual summary reports.
-9• Export medical records to a comma separated file.
-10• Import medical records from a comma separated file.""")
 
 
 def main():
@@ -103,7 +151,7 @@ def main():
 
     while True:
 
-        show_menu()
+        ConsolePrinter.show_menu()
         option = int(input("\nChoose your option.\n\n"))
 
         if option == 1:
@@ -131,17 +179,14 @@ def main():
             print("Test successfully updated.\n")
 
         elif option == 7:
-            print("""Enter one or a combination of these conditions:
-            
-1• Patient ID, 
-2• Test Name, 
-3• Abnormal tests, 
-4• Test added to the system within a specific period (start and end dates), 
-5• Test status, 
-6• Test turnaround time within a period (minimum and maximum turnaround time)\n""")
+
+            ConsolePrinter.print_filter_menu()
 
             conditions = input("Enter conditions in this format : 1, 2, ...\n")
-            filter_tests(conditions)
+            patients = filter_tests(conditions)
+            print_filtered_tests(patients)
+
+
 
 
 if __name__ == '__main__':
