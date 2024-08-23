@@ -134,9 +134,13 @@ def generate_report(conditions):
     patients = filter_tests(conditions)
     print_filtered_tests(patients)
 
+    summation = Patient.get_sum()
+    count = Patient.get_record_num()
+    average = summation/count
+
     print("**************** Summary Report ****************")
 
-    summation = sum(list( map(lambda x : x.result, patients)))
+
 
 
 

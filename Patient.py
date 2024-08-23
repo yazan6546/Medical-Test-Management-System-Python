@@ -108,6 +108,25 @@ class Patient:
             tests = patient.get_tests_list()
 
             summation += sum(list(map(lambda x: x.result, tests)))
-            print(summation)
 
         return summation
+
+    @staticmethod
+    def get_record_num():
+        length = 0
+        for patient in Patient.patients.values():
+            length += len(patient.get_tests_list())
+
+        return length
+
+    def get_max_tests(self):
+        test =  max(self.get_tests_list(), key=lambda test : test.result)
+        return test.result
+
+    @staticmethod
+    def get_max_patients():
+        max_list = list(map(lambda patient : patient.get_max_tests(), Patient.patients.values()))
+        print(max_list)
+        return max(max_list)
+
+
