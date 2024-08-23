@@ -18,7 +18,6 @@ def filter_tests(conditions):
     # with key id and value list of tests
 
     filtered_dict = dict(map(lambda x : (x[0], x[1].get_tests_list()), Patient.patients.items()))
-    print(filtered_dict)
 
     if len(conditions) > 6:
         raise Exception("Too many conditions")
@@ -51,9 +50,8 @@ def filter_tests(conditions):
     # Get all abnormal tests
 
     if 3 in conditions:
-
         for id, tests in filtered_dict.items():
-            tests = list(filter(lambda test: test.is_abnormal, tests))
+            tests = list(filter(lambda test: test.is_abnormal(), tests))
             filtered_dict[id] = tests
 
     if 4 in conditions:

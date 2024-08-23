@@ -42,7 +42,7 @@ class Test_type:
 
     @property
     def range1(self):
-        return float(self.__range1)
+        return self.__range1
 
     @range1.setter
     def range1(self, value):
@@ -51,7 +51,7 @@ class Test_type:
 
     @property
     def range2(self):
-        return float(self.__range2)
+        return self.__range2
 
     @range2.setter
     def range2(self, value):
