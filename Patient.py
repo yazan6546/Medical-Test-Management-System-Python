@@ -156,7 +156,7 @@ class Patient:
 
     @staticmethod
     def get_min_patients(patients, attr):
-        min_list = list(map(lambda patient: patient.get_max_tests(attr), patients))
+        min_list = list(map(lambda patient: patient.get_min_tests(attr), patients))
         return min(min_list)
 
 

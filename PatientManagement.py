@@ -142,21 +142,32 @@ def generate_report(conditions):
         tests = list(filter(lambda test: test.status.lower() == "completed", patient.get_tests_list()))
         patient.tests = tests
 
+    # Remove all patient objects with an empty list
+    patients = list(filter(lambda patient: len(patient.get_tests_list()) != 0, patients))
     summation = Patient.get_sum_turnaround(patients)
     count = Patient.get_record_num(patients)
-    average_2 = summation / count
-    min_2 = Patient.get_min_patients(patients, "turnaround")
-    max_2 = Patient.get_max_patients(patients, "turnaround")
+
+
+
+    if count != 0:
+        average_2 = summation / count
+        min_2 = Patient.get_min_patients(patients, "turnaround")
+        max_2 = Patient.get_max_patients(patients, "turnaround")
+
+    else:
+        average_2 = "No completed tests"
+        min_2 = "No completed tests"
+        max_2 = "No completed tests"
 
     print("**************** Summary Report ****************\n")
 
-    print(f"Average : {average_1} ")
-    print(f"Min : {min_1} ")
-    print(f"Max : {max_1} \n")
+    print(f"Average result: {average_1} ")
+    print(f"Min result: {min_1} ")
+    print(f"Max result: {max_1} \n")
 
-    print(f"Average : {average_2} ")
-    print(f"Min : {min_2} ")
-    print(f"Max : {max_2} \n")
+    print(f"Average turnaround time: {average_2} ")
+    print(f"Min turnaround time: {min_2} ")
+    print(f"Max turnaround time: {max_2} \n")
 
 
 def main():
