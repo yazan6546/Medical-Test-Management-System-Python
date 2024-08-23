@@ -77,7 +77,7 @@ def main():
 
         elif option == 5:
             UpdateHandler.update_medical_record()
-            print("Test successfully updated.\n")
+            print("Record successfully updated.\n")
 
         elif option == 6:
             UpdateHandler.update_medical_test()

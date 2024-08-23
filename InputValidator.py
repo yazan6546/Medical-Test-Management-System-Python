@@ -38,3 +38,11 @@ class InputValidator:
     def is_test_status_number_valid(test_status):
         if not test_status.isnumeric() or not 3 >= int(test_status) > 0:
             raise ValueError("Test status is invalid")
+
+    @staticmethod
+    def is_test_status_valid(test_status):
+        if (str(test_status).lower() != 'completed'
+            and str(test_status).lower() != 'reviewed'
+            and str(test_status).lower() != 'pending'):
+
+            raise ValueError("Test status is invalid")

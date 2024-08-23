@@ -1,3 +1,5 @@
+from tkinter.constants import PROJECTING
+
 from Test import Test
 from ConsolePrinter import ConsolePrinter
 from InputValidator import InputValidator
@@ -52,7 +54,7 @@ class UpdateHandler:
         while not access:
 
             ConsolePrinter.print_record_file()
-            test_id = input("Enter the ID that you want a test of:\n").strip()
+            test_id = input("\nEnter the ID that you want a test of:\n").strip()
             try:
                 InputValidator.is_patient_id_exist(test_id, Patient.patients)
                 patient = Patient.patients[test_id]
@@ -60,7 +62,7 @@ class UpdateHandler:
                 # Print the numbered patient tests
                 print(patient)
                 record_num = input("Enter the line number of the record:\n").strip()
-                InputValidator.is_test_number_valid(record_num, patient.get_test_numbers())
+                InputValidator.is_test_record_number_valid(record_num, patient.get_test_numbers())
                 test = patient.get_test(int(record_num) - 1)
 
             except ValueError as e:
@@ -69,7 +71,7 @@ class UpdateHandler:
 
             for attr, value in test.__dict__.items():
                 while True:
-                    attr = str(attr).replace("_Test_type__", "")
+                    attr = str(attr).replace("_Test__", "")
                     new_value = input(f"Current {attr}: {value} | Enter new value or press Enter to skip: ").strip()
                     if not new_value:  # If the user presses Enter without input, skip the attribute
                         break

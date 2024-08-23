@@ -1,4 +1,6 @@
 import datetime
+
+from InputValidator import InputValidator
 from Test_type import Test_type
 
 
@@ -7,21 +9,55 @@ class Test:
     def __init__(self, name, status, unit, date_start, date_end=None, result=None):
         self.name = name
         self.status = status
-        self.date_start = Test.create_date(date_start)
+        self.date_start = date_start
         self.unit = unit
         self.result = float(result)
 
         if status.lower() == 'completed':
-            self.date_end = Test.create_date(date_end)
+            self.date_end = date_end
 
-        elif status.lower() != 'reviewed' and status.lower() != 'pending':
-            raise Exception('Invalid status : ' + status)
 
     def __str__(self):
         test =  f"%s, %s, %.1f, %s, %s" % (self.name, self.date_start.strftime("%Y-%m-%d %H:%M"), self.result, self.unit, self.status)
         if self.status.lower() == 'completed':
             test += f", %s" % self.date_end.strftime("%Y-%m-%d %H:%M")
         return test
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, name):
+        InputValidator.is_test_name_valid(name, Test_type.types)
+        self.__name = name
+
+    @property
+    def status(self):
+        return self.__status
+
+    @status.setter
+    def status(self, status):
+        InputValidator.is_test_status_valid(status)
+        self.__status = status
+
+    @property
+    def date_start(self):
+        return self.date_start
+
+    @date_start.setter
+    def date_start(self, date_start):
+        date = datetime.datetime.strptime(date_start, '%Y-%m-%d %H:%M')
+        self.date_start = date
+
+    @property
+    def date_end(self):
+        return self.date_end
+
+    @date_end.setter
+    def date_end(self, date_end):
+        date = datetime.datetime.strptime(date_end, '%Y-%m-%d %H:%M')
+        self.date_end = date
 
 
     @staticmethod
@@ -46,10 +82,7 @@ class Test:
 
         return test
 
-    @staticmethod
-    def create_date(date_string):
-        date = datetime.datetime.strptime(date_string, '%Y-%m-%d %H:%M')
-        return date
+
 
     def is_abnormal(self):
         range1 = Test_type.types[self.name].range1 # get the normal range of this test
@@ -61,5 +94,9 @@ class Test:
             return self.result < range1
         elif range1 is None and range2 is not None:
             return self.result > range2
+
+    @status.setter
+    def status(self, value):
+        self._status = value
 
 
