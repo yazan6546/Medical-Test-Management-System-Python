@@ -5,24 +5,44 @@ class InputValidator:
 
     @staticmethod
     def is_patient_id_valid(patient_id):
-        return patient_id.isnumeric() and len(patient_id) == 7
+        if not patient_id.isnumeric() or not len(patient_id) == 7:
+            raise ValueError("Patient ID is invalid")
 
     @staticmethod
-    def is_test_number_valid(test_number):
-        with open(r"medicalTest.txt", 'r') as fp:
-            lines = len(fp.readlines())
+    def is_patient_id_exist(patient_id, dict):
+        if patient_id not in dict:
+            raise ValueError("Patient ID is non-existent")
 
-        return test_number.isnumeric() and int(test_number) <= lines
+    @staticmethod
+    def is_test_name_valid(test_name, types):
+        if  test_name not in types:
+            raise ValueError("Test name is invalid")
+
+    @staticmethod
+    def is_test_number_valid(test_number, types):
+        if not test_number.isnumeric() or not 1 <= int(test_number) <= len(types):
+            raise ValueError("Test number is invalid")
+
+    @staticmethod
+    def is_test_record_number_valid(test_number, record_numbers):
+        if not test_number.isnumeric() or not 1 <= int(test_number) <= record_numbers:
+            raise ValueError("Test number is invalid")
+
 
     @staticmethod
     def is_date_time_valid(date_time):
         date_time_format = '%Y-%m-%d %H:%M'
-        try:
-            datetime.strptime(date_time, date_time_format)
-        except ValueError:
-            return False
-        return True
+        datetime.strptime(date_time, date_time_format)
 
     @staticmethod
     def is_test_status_number_valid(test_status):
-        return test_status.isnumeric() and 3 >= int(test_status) > 0
+        if not test_status.isnumeric() or not 3 >= int(test_status) > 0:
+            raise ValueError("Test status is invalid")
+
+    @staticmethod
+    def is_test_status_valid(test_status):
+        if (str(test_status).lower() != 'completed'
+            and str(test_status).lower() != 'reviewed'
+            and str(test_status).lower() != 'pending'):
+
+            raise ValueError("Test status is invalid")
