@@ -16,9 +16,9 @@ class Test:
         if status.lower() == 'completed':
             self.date_end = date_end
 
-
     def __str__(self):
-        test =  f"%s, %s, %.1f, %s, %s" % (self.name, self.date_start.strftime("%Y-%m-%d %H:%M"), self.result, self.unit, self.status)
+        test = f"%s, %s, %.1f, %s, %s" % (
+        self.name, self.date_start.strftime("%Y-%m-%d %H:%M"), self.result, self.unit, self.status)
         if self.status.lower() == 'completed':
             test += f", %s" % self.date_end.strftime("%Y-%m-%d %H:%M")
         return test
@@ -85,7 +85,6 @@ class Test:
         else:
             return None
 
-
     @staticmethod
     def create_date(date):
         date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M')
@@ -113,10 +112,8 @@ class Test:
 
         return test
 
-
-
     def is_abnormal(self):
-        range1 = Test_type.types[self.name].range1 # get the normal range of this test
+        range1 = Test_type.types[self.name].range1  # get the normal range of this test
         range2 = Test_type.types[self.name].range2
 
         if range1 is not None and range2 is not None:
@@ -125,6 +122,3 @@ class Test:
             return self.result < range1
         elif range1 is None and range2 is not None:
             return self.result > range2
-
-
-

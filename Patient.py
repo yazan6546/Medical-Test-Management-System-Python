@@ -71,9 +71,9 @@ class Patient:
     def get_patients_without_numbering():
         string = ""
         for patient in Patient.patients.values():
-            string +=  '\n'.join(map(lambda x : f"{patient.id}: {str(x)}", enumerate(patient.get_tests_list())))
-            print(string)
+            string +=  '\n'.join(map(lambda x : f"{patient.id}: {str(x)}", patient.get_tests_list())) + "\n"
 
+        return string
 
     @staticmethod
     def import_records():
