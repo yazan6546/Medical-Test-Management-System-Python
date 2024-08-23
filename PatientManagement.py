@@ -18,7 +18,6 @@ def filter_tests(conditions):
     # with key id and value list of tests
 
     filtered_dict = dict(map(lambda x : (x[0], x[1].get_tests_list()), Patient.patients.items()))
-    print(filtered_dict)
 
     if len(conditions) > 6:
         raise Exception("Too many conditions")
@@ -26,15 +25,17 @@ def filter_tests(conditions):
     invalid = True
     while invalid:
         if 1 in conditions:
-            id = int(input("Enter Patient ID: \n"))
+            id = input("Enter Patient ID: \n")
             try:
                 InputValidator.is_patient_id_valid(id)
+                InputValidator.is_patient_id_exist(id, Patient.patients)
                 invalid = False
             except ValueError as e:
                 print(f"Error : {e}")
+                continue
 
             filtered_dict.clear()
-            filtered_dict = {id, Patient.patients[id].get_tests_list()}
+            filtered_dict = {id : Patient.patients[id].get_tests_list()}
 
     if 2 in conditions:
         name = input("Enter Test Name: \n")
@@ -69,6 +70,12 @@ def filter_tests(conditions):
 
             tests = list(filter(lambda test: test.status == status, tests))
             filtered_dict[id] = tests
+
+
+    patients = list(map(lambda items : Patient(items[0], items[1]), filtered_dict.items()))
+    print("\n************ Tests that match the criteria ******************\n")
+    ConsolePrinter.print_record_file(patients)
+    print()
 
 
 

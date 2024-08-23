@@ -5,9 +5,9 @@ class Patient:
 
     patients = {}
 
-    def __init__(self, id):
+    def __init__(self, id, tests=[]):
         self.__id = None
-        self.__tests = []
+        self.__tests = tests
         self.id = id
 
     @property
