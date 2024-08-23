@@ -5,9 +5,14 @@ class Patient:
 
     patients = {}
 
-    def __init__(self, id, tests=[]):
+    def __init__(self, id, tests=None):
         self.__id = None
-        self.__tests = tests
+
+        # If the default argument were [] it would cause
+        # all patient objects to have the same list
+        # as it is mutable. This is a workaround
+
+        self.__tests = tests if tests is not None else []
         self.id = id
 
     @property

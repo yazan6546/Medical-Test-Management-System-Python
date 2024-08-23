@@ -24,6 +24,11 @@ class ConsolePrinter:
     @staticmethod
     def print_record_file(list_patients=Patient.patients.values()):
         number = 1
+
+        if len(list_patients) == 0:
+            print("No records that match these criteria")
+            return
+
         for patient in list_patients:
             number = patient.print_patients_with_numbering(number)
 

@@ -18,6 +18,7 @@ def filter_tests(conditions):
     # with key id and value list of tests
 
     filtered_dict = dict(map(lambda x : (x[0], x[1].get_tests_list()), Patient.patients.items()))
+    print(filtered_dict)
 
     if len(conditions) > 6:
         raise Exception("Too many conditions")
@@ -73,6 +74,7 @@ def filter_tests(conditions):
 
 
     patients = list(map(lambda items : Patient(items[0], items[1]), filtered_dict.items()))
+
     print("\n************ Tests that match the criteria ******************\n")
     ConsolePrinter.print_record_file(patients)
     print()
@@ -99,6 +101,7 @@ def main():
 
     Test_type.import_tests()
     Patient.import_records()
+
 
     while True:
 
