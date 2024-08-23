@@ -49,15 +49,24 @@ class Test:
     @date_start.setter
     def date_start(self, date_start):
         date = datetime.datetime.strptime(date_start, '%Y-%m-%d %H:%M')
+
+        if date > datetime.datetime.now():
+            raise ValueError("Date cannot be in the future")
+
         self.__date_start = date
 
     @property
     def date_end(self):
+
         return self.__date_end
 
     @date_end.setter
     def date_end(self, date_end):
         date = datetime.datetime.strptime(date_end, '%Y-%m-%d %H:%M')
+
+        if date > datetime.datetime.now():
+            raise ValueError("Date cannot be in the future")
+
         self.__date_end = date
 
     @property
