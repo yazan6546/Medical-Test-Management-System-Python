@@ -31,7 +31,7 @@ def filter_tests(conditions):
                 InputValidator.is_patient_id_valid(id)
                 invalid = False
             except ValueError as e:
-                raise Exception(f"Error : {e}")
+                print(f"Error : {e}")
 
             filtered_dict.clear()
             filtered_dict = {id, Patient.patients[id].get_tests_list()}

@@ -22,9 +22,9 @@ class ConsolePrinter:
             print(f"{count+1}) {test}")
 
     @staticmethod
-    def print_record_file():
+    def print_record_file(dictionry=Patient.patients):
         number = 1
-        for patient in Patient.patients.values():
+        for patient in dictionry.values():
             number = patient.print_patients_with_numbering(number)
 
         return number
