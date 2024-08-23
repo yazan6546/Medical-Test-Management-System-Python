@@ -47,13 +47,32 @@ def main():
             ConsolePrinter.print_filter_menu()
 
             conditions = input("Enter conditions in this format : 1, 2, ...\n")
-            patients = Filter_records.filter_tests(conditions)
-            Filter_records.print_filtered_tests(patients)
+
+            try :
+                InputValidator.is_match_pattern(conditions.replace(" ", ""))
+                patients = Filter_records.filter_tests(conditions)
+                Filter_records.print_filtered_tests(patients)
+            except ValueError as e:
+                print(f"Error : {e}")
 
         elif option == 8:
             ConsolePrinter.print_filter_menu()
-            conditions = input("Enter conditions in this format : 1, 2, ...\n")
-            Filter_records.generate_report(conditions)
+
+            try :
+                conditions = input("Enter conditions in this format : 1, 2, ...\n")
+                InputValidator.is_match_pattern(conditions.replace(" ", ""))
+                Filter_records.generate_report(conditions)
+            except ValueError as e:
+                print(f"Error : {e}")
+
+        elif option == 9:
+            continue
+
+        elif option == 10:
+            continue
+
+        else:
+            print("Invalid option. Please try again.\n")
 
 
 

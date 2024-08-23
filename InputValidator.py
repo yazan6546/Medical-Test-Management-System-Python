@@ -89,6 +89,12 @@ class InputValidator:
             raise ValueError("Lower bound should be less than upper bound.")
         return True
 
+    @staticmethod
+    def is_match_pattern(string):
+        if not re.match(r'^(?:[1-6](?:,[1-6])*)?$', string):
+            raise ValueError("Invalid pattern. It does not match the pattern 1, 2, 3...")
+
+
 
 
 
