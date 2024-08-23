@@ -52,8 +52,6 @@ def filter_tests(conditions):
             filtered_dict[id] = tests
 
 
-
-
     # Get all abnormal tests
 
     if 3 in conditions:
@@ -87,7 +85,7 @@ def filter_tests(conditions):
         status = input("Enter test Status: \n")
         for id, tests in filtered_dict.items():
 
-            tests = list(filter(lambda test: test.status == status, tests))
+            tests = list(filter(lambda test: test.status.lower() == status, tests))
             filtered_dict[id] = tests
 
     if 6 in conditions:
@@ -134,20 +132,31 @@ def generate_report(conditions):
     patients = filter_tests(conditions)
     print_filtered_tests(patients)
 
-    summation = Patient.get_sum(patients)
+    summation = Patient.get_sum_result(patients, "result")
     count = Patient.get_record_num(patients)
-    average = summation/count
-    min = Patient.get_min_patients(patients)
-    max = Patient.get_max_patients(patients)
+    average_1 = summation/count
+    min_1 = Patient.get_min_patients(patients, "result")
+    max_1 = Patient.get_max_patients(patients, "result")
+
+    for patient in patients:
+        tests = list(filter(lambda test: test.status.lower() == "completed", patient.get_tests_list()))
+        patient.tests = tests
+
+    summation = Patient.get_sum_turnaround(patients)
+    count = Patient.get_record_num(patients)
+    average_2 = summation / count
+    min_2 = Patient.get_min_patients(patients, "turnaround")
+    max_2 = Patient.get_max_patients(patients, "turnaround")
 
     print("**************** Summary Report ****************\n")
 
-    print(f"Average : {average} ")
-    print(f"Min : {min} ")
-    print(f"Max : {max} ")
+    print(f"Average : {average_1} ")
+    print(f"Min : {min_1} ")
+    print(f"Max : {max_1} \n")
 
-    print()
-
+    print(f"Average : {average_2} ")
+    print(f"Min : {min_2} ")
+    print(f"Max : {max_2} \n")
 
 
 def main():

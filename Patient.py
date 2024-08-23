@@ -1,4 +1,5 @@
-from InputValidator import InputValidator
+from datetime import timedelta
+
 from Test import *
 
 class Patient:
@@ -23,6 +24,14 @@ class Patient:
     def id(self, id):
         InputValidator.is_patient_id_valid(id)
         self.__id = id
+
+    @property
+    def tests(self):
+        return self.__tests
+
+    @tests.setter
+    def tests(self, tests):
+        self.__tests = tests if tests is not None else []
 
     def add_test(self, test):
         self.__tests.append(test)
@@ -101,15 +110,27 @@ class Patient:
         return array
 
     @staticmethod
-    def get_sum(patients):
+    def get_sum_result(patients, attr):
 
         summation = 0
         for patient in patients:
             tests = patient.get_tests_list()
 
-            summation += sum(list(map(lambda x: x.result, tests)))
+            summation += sum(list(map(lambda x: getattr(x, attr), tests)))
 
         return summation
+
+    @staticmethod
+    def get_sum_turnaround(patients):
+
+        summation = timedelta(seconds=0)
+        for patient in patients:
+            tests = patient.get_tests_list()
+
+            for test in tests:
+                summation += test.turnaround
+        return summation
+
 
     @staticmethod
     def get_record_num(patients):
@@ -119,24 +140,28 @@ class Patient:
 
         return length
 
-    def get_max_tests(self):
-        test =  max(self.get_tests_list(), key=lambda test : test.result)
-        return test.result
+    def get_max_tests(self, attr):
+        test =  max(self.get_tests_list(), key=lambda test : getattr(test, attr))
+        return getattr(test, attr)
 
     @staticmethod
-    def get_max_patients(patients):
-        max_list = list(map(lambda patient : patient.get_max_tests(), patients))
+    def get_max_patients(patients, attr):
+        max_list = list(map(lambda patient : patient.get_max_tests(attr), patients))
         return max(max_list)
 
 
-    def get_min_tests(self):
-        test = min(self.get_tests_list(), key=lambda test: test.result)
-        return test.result
+    def get_min_tests(self, attr):
+        test = min(self.get_tests_list(), key=lambda test: getattr(test, attr))
+        return getattr(test, attr)
 
     @staticmethod
-    def get_min_patients(patients):
-        min_list = list(map(lambda patient: patient.get_max_tests(), patients))
+    def get_min_patients(patients, attr):
+        min_list = list(map(lambda patient: patient.get_max_tests(attr), patients))
         return min(min_list)
+
+
+
+
 
 
 

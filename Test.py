@@ -77,6 +77,14 @@ class Test:
     def result(self, result):
         self.__result = float(result)
 
+    @property
+    def turnaround(self):
+
+        if self.status.lower() == 'completed':
+            return self.date_end - self.date_start
+        else:
+            return None
+
 
     @staticmethod
     def create_date(date):
