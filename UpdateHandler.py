@@ -44,6 +44,9 @@ class UpdateHandler:
                             break  # Exit the loop if the user chooses not to retry
 
             print()
+            record_file = open('medicalTest.txt', 'w')
+            record_file.write(Patient.get_patients_without_numbering())
+            record_file.close()
             #
             # record_file = open('medicalTest.txt', 'a')
             # record_file.write(str(test))
@@ -100,4 +103,8 @@ class UpdateHandler:
                             break  # Exit the loop if the user chooses not to retry
 
             print()
+            record_file = open('medicalTest.txt', 'w')
+            record_file.write(Patient.get_patients_without_numbering())
+            record_file.close()
+
             access = True
