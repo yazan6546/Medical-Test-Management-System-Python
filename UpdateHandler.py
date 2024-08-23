@@ -27,6 +27,8 @@ class UpdateHandler:
             test = Test_type.types[list_key[int(test_number) - 1]]
             for attr, value in test.__dict__.items():
                 while True:
+
+                    print()
                     attr = str(attr).replace("_Test_type__", "")
                     new_value = input(f"Current {attr}: {value} | Enter new value or press Enter to skip: ").strip()
                     if not new_value:  # If the user presses Enter without input, skip the attribute
@@ -77,6 +79,7 @@ class UpdateHandler:
                     continue
 
                 while True:
+                    print()
                     attr = str(attr).replace("_Test__", "")
                     new_value = input(f"Current {attr}: {value} | Enter new value or press Enter to skip: ").strip()
 

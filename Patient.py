@@ -34,6 +34,9 @@ class Patient:
     def get_test_numbers(self):
         return len(self.__tests)
 
+    def get_tests_list(self):
+        return self.__tests
+
     def __str__(self):
         return '\n'.join(map(lambda x : f"{x[0] + 1}) {self.id}: {str(x[1])}", enumerate(self.__tests)))
 

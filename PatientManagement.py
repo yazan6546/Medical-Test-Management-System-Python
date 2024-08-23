@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+import Patient
 from ConsolePrinter import ConsolePrinter
 from InsertionHandler import InsertionHandler
 from UpdateHandler import UpdateHandler
@@ -7,31 +10,67 @@ from Utilities import Utilities
 
 
 def filter_tests(conditions):
-    tests = Patient.patients
+
+    conditions = list(map(int, conditions.split(','))) # Convert the list of numeric strings to integers
+    conditions = {i : True for i in conditions} # Convert into a dictionary for fast lookups
+
+    # Convert the dictionary of key id and value patient to a dictionary
+    # with key id and value list of tests
+
+    filtered_dict = dict(map(lambda x : (x[0], x[1].get_tests_list()), Patient.patients.items()))
+    print(filtered_dict)
+
     if len(conditions) > 6:
         raise Exception("Too many conditions")
 
-    for i in conditions:
-        if i > 6 or i < 0:
-            raise Exception("Invalid condition")
-        if i == 0:
+    invalid = True
+    while invalid:
+        if 1 in conditions:
             id = int(input("Enter Patient ID: \n"))
-            tests = tests[id].tests
-        elif i == 1:
-            name = input("Enter Patient Name: \n")
+            try:
+                InputValidator.is_patient_id_valid(id)
+                invalid = False
+            except ValueError as e:
+                raise Exception(f"Error : {e}")
+
+            filtered_dict.clear()
+            filtered_dict = {id, Patient.patients[id].get_tests_list()}
+
+    if 2 in conditions:
+        name = input("Enter Test Name: \n")
+
+        # Iterate over each test and filter
+        for id, tests in filtered_dict.items():
+
             tests = list(filter(lambda x: x.name == name, tests))
-        elif i == 2:
+            filtered_dict[id] = tests
+
+
+    # Get all abnormal tests
+
+    if 3 in conditions:
+
+        for id, tests in filtered_dict.items():
             tests = list(filter(lambda test: test.is_abnormal, tests))
-        elif i == 3:
-            start = input("Enter Start Date in this format : %Y-%m-%d %H:%M\n")
-            start = Test.create_date(start)
-            end = input("Enter End Date in this format: %Y-%m-%d %H:%M\n")
-            end = Test.create_date(end)
+            filtered_dict[id] = tests
+
+    if 4 in conditions:
+        start = input("Enter Start Date in this format : %Y-%m-%d %H:%M\n")
+        start = Test.create_date(start)
+        end = input("Enter End Date in this format: %Y-%m-%d %H:%M\n")
+        end = Test.create_date(end)
+
+        for id, tests in filtered_dict.items():
             tests = list(filter(lambda test: start < test.date_start < end, tests))
 
-        elif i == 4:
-            status = input("Enter test Status: \n")
+    if 5 in conditions:
+        status = input("Enter test Status: \n")
+        for id, tests in filtered_dict.items():
+
             tests = list(filter(lambda test: test.status == status, tests))
+            filtered_dict[id] = tests
+
+
 
 
 def show_menu():
@@ -93,8 +132,7 @@ def main():
 5• Test status, 
 6• Test turnaround time within a period (minimum and maximum turnaround time)\n""")
 
-            print("Enter conditions in this format : 1, 2, ...")
-            conditions = input().split()
+            conditions = input("Enter conditions in this format : 1, 2, ...\n")
             filter_tests(conditions)
 
 
