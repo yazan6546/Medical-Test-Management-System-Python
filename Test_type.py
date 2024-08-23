@@ -1,6 +1,4 @@
 from InputValidator import InputValidator
-from Utilities import Utilities
-
 
 class Test_type:
 
@@ -37,7 +35,7 @@ class Test_type:
 
     @period.setter
     def period(self, value):
-        Utilities.is_period_valid(value)
+        InputValidator.is_period_valid(value)
         self.__period = value
 
     @property
