@@ -22,6 +22,7 @@ class InsertionHandler:
                 test_upper_bound = input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip()
                 InputValidator.is_range_valid(test_upper_bound)
 
+                print("hah")
                 if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
                     raise ValueError("you should input at least one bound\n")
 
@@ -88,10 +89,9 @@ class InsertionHandler:
 
                 if test_status == "Completed":
                     test_date_end = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
-
+                    InputValidator.is_date_time_valid(test_date_end)
                     if test_date_start >= test_date_end:
                         raise ValueError("end test date should be greater than start test date")
-                    InputValidator.is_date_time_valid(test_date_end)
 
             except ValueError as e:
                 print(f"Error : {e}. Try again.\n")

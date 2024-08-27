@@ -51,6 +51,9 @@ class Test_type:
         if float(value) < 0:
             raise ValueError("Range should be greater than or equal to zero")
 
+        if self.range2 is not None and float(self.range2) < float(value):
+            raise ValueError("Lower bound should be less than upper bound")
+
         self.__range1 = float(value)
 
 
@@ -66,6 +69,9 @@ class Test_type:
             raise ValueError("Range is invalid")
         if float(value) < 0:
             raise ValueError("Range should be greater than or equal to zero")
+
+        if self.range1 is not None and float(self.range1) > float(value):
+            raise ValueError("Lower bound should be less than upper bound")
 
         self.__range2 = float(value)
 

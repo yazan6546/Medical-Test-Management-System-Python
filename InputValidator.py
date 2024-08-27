@@ -105,15 +105,10 @@ class InputValidator:
     @staticmethod
     def are_bounds_consistent(lower_bound, upper_bound):
 
-        if lower_bound == -1 or upper_bound == -1:
-            return True
-
-        lower_bound = float(lower_bound)
-        upper_bound = float(upper_bound)
-        if lower_bound > upper_bound:
+        if float(lower_bound) == -1 or float(upper_bound) == -1:
+            return
+        elif float(lower_bound) > float(upper_bound):
             raise ValueError("Lower bound should be less than upper bound.")
-        return True
-
 
     @staticmethod
     def is_match_pattern(string):
