@@ -17,9 +17,10 @@ class InsertionHandler:
 
                 InputValidator.is_test_name_valid(test_name, Test_type.types)
 
-                test_lower_bound = float(input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip())
+                test_lower_bound = input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip()
+                InputValidator.is_range_valid(test_lower_bound)
                 test_upper_bound = float(input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip())
-
+                InputValidator.is_range_valid(test_upper_bound)
 
                 if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
                     raise ValueError("you should input at least one bound\n")
