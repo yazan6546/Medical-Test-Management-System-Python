@@ -65,8 +65,8 @@ class InputValidator:
             float(range)
         except ValueError:
             raise ValueError("Range is invalid")
-        if float(range) < 0:
-            raise ValueError("Range should be greater than or equal to zero")
+        if float(range) < 0 and float(range) != -1:
+            raise ValueError("Range should be greater than or equal to zero or -1 if DNE")
 
 
 

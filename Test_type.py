@@ -44,6 +44,12 @@ class Test_type:
 
     @range1.setter
     def range1(self, value):
+        try:
+            float(value)
+        except ValueError:
+            raise ValueError("Range is invalid")
+        if float(value) < 0:
+            raise ValueError("Range should be greater than or equal to zero")
 
         self.__range1 = float(value)
 
@@ -54,6 +60,13 @@ class Test_type:
 
     @range2.setter
     def range2(self, value):
+        try:
+            float(value)
+        except ValueError:
+            raise ValueError("Range is invalid")
+        if float(value) < 0:
+            raise ValueError("Range should be greater than or equal to zero")
+
         self.__range2 = float(value)
 
     @property
