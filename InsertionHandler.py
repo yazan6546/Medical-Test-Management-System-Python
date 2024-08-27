@@ -88,10 +88,13 @@ class InsertionHandler:
 
                 if test_status == "Completed":
                     test_date_end = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
+
+                    if test_date_start >= test_date_end:
+                        raise ValueError("end test date should be greater than start test date")
                     InputValidator.is_date_time_valid(test_date_end)
 
             except ValueError as e:
-                print(f"Error : {e}. Try again.")
+                print(f"Error : {e}. Try again.\n")
                 continue
 
 
