@@ -108,7 +108,7 @@ class InsertionHandler:
             Patient.patients[patient_id].add_test(test)
 
             record_file = open('medicalRecord.txt', 'a')
-            record_file.write(f"{patient_id}: {str(test)}")
+            record_file.write(f"\n{patient_id}: {str(test)}")
             record_file.close()
 
             access = True
