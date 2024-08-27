@@ -15,10 +15,7 @@ class InsertionHandler:
             try:
                 test_name = input("Enter test name: \n").strip()
 
-                if not test_name.isalpha():
-                    raise ValueError("Test name must be alphanumeric")
-
-                InputValidator.is_test_name_exist(test_name, Test_type.types)
+                InputValidator.is_test_name_valid_2(test_name, Test_type.types)
 
                 test_lower_bound = float(input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip())
                 test_upper_bound = float(input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip())
