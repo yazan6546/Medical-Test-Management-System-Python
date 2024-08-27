@@ -78,6 +78,17 @@ class InputValidator:
             raise ValueError("Invalid floating point number.")
 
     @staticmethod
+    def is_result_valid(num):
+        try:
+            float(num)
+        except ValueError:
+            raise ValueError("Invalid floating point number.")
+
+        if float(num) < 0:
+            raise ValueError("Result should be greater than or equal to zero.")
+
+
+    @staticmethod
     def is_period_valid(period):
         if not re.match(r"[0-9][0-9]-[0-9][0-9]-[0-9][0-9]", period):
             raise ValueError("Invalid period. It does not match the pattern DD-HH-MM.")

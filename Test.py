@@ -25,7 +25,7 @@ class Test:
 
     @property
     def name(self):
-        return self.__name
+        return self.__name.upper()
 
     @name.setter
     def name(self, name):

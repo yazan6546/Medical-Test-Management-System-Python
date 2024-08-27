@@ -86,7 +86,7 @@ class Test_type:
         if self.__range1 is not None and self.__range2 is not None:
             test += f">%.1f,<%.1f;" % (float(self.range1), float(self.range2))
         elif self.__range1 is None:
-            test += f"<%.1f; " % self.range2
+            test += f"<%.1f;" % self.range2
         elif self.__range2 is None:
             test += f">%.1f;" % self.range1
 

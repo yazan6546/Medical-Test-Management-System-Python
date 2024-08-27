@@ -55,7 +55,7 @@ class InsertionHandler:
             record_file.write(str(new_test))
             record_file.close()
 
-            Test_type.types[test_name] = new_test
+            Test_type.types[test_name.upper()] = new_test
             access = True
 
     @staticmethod
@@ -73,7 +73,7 @@ class InsertionHandler:
                 test_name = input("Enter the test you want:\n").strip()
                 InputValidator.is_test_name_valid_2(test_name, Test_type.types)
                 test_result = input("Enter test result: \n").strip()
-                InputValidator.isfloat(test_result)
+                InputValidator.is_result_valid(test_result)
                 ConsolePrinter.print_available_test_states()
                 print()
 
@@ -100,7 +100,7 @@ class InsertionHandler:
                 patient = Patient(id=patient_id)
                 Patient.patients[patient_id] = patient
 
-            test_unit = Test_type.types[test_name].unit
+            test_unit = Test_type.types[test_name.upper()].unit
             test = Test(name=test_name, unit=test_unit, status=test_status, result=test_result,
                         date_start=test_date_start, date_end=test_date_end)
             Patient.patients[patient_id].add_test(test)

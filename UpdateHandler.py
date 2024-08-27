@@ -24,7 +24,7 @@ class UpdateHandler:
             except ValueError as e:
                 print(f"Error: {e}")
 
-            test = Test_type.types[list_key[int(test_number) - 1]]
+            test = Test_type.types[list_key[int(test_number) - 1].upper()]
             for attr, value in test.__dict__.items():
                 while True:
 
