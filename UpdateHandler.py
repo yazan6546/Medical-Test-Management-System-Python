@@ -23,6 +23,7 @@ class UpdateHandler:
                 InputValidator.is_test_number_valid(test_number, Test_type.types)
             except ValueError as e:
                 print(f"Error: {e}")
+                continue
 
             test = Test_type.types[list_key[int(test_number) - 1].upper()]
             for attr, value in test.__dict__.items():
