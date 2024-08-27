@@ -10,8 +10,6 @@ from UpdateHandler import UpdateHandler
 def main():
 
     Test_type.import_tests()
-    print(Test_type.types.keys())
-
     Patient.import_records()
 
 

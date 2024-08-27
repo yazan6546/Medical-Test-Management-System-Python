@@ -15,7 +15,7 @@ class InsertionHandler:
             try:
                 test_name = input("Enter test name: \n").strip()
 
-                InputValidator.is_test_name_valid_2(test_name, Test_type.types)
+                InputValidator.is_test_name_valid(test_name, Test_type.types)
 
                 test_lower_bound = float(input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip())
                 test_upper_bound = float(input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip())
@@ -70,7 +70,7 @@ class InsertionHandler:
                 ConsolePrinter.print_test_names()
                 print()
                 test_name = input("Enter the test you want:\n").strip()
-                InputValidator.is_test_name_valid(test_name, Test_type.types)
+                InputValidator.is_test_name_valid_2(test_name, Test_type.types)
                 test_result = input("Enter test result: \n").strip()
                 InputValidator.isfloat(test_result)
                 ConsolePrinter.print_available_test_states()
