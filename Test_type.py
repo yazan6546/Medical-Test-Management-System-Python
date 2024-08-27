@@ -17,7 +17,7 @@ class Test_type:
 
         self.__period = period
         self.__unit = unit
-        self.__name = name
+        self.name = name
 
     @property
     def name(self):
@@ -27,7 +27,7 @@ class Test_type:
     def name(self, value):
 
         InputValidator.is_test_name_valid(value, Test_type.types)
-        self.__name = value
+        self.__name = value.upper()
 
     @property
     def period(self):
@@ -110,13 +110,13 @@ class Test_type:
             if len(ranges) == 2:
                 range1 = ranges[0][1::]
                 range2 = ranges[1][1::]
-                Test_type.types[name] = Test_type(range1=range1, unit=unit, range2=range2, period=period, name=name)
+                Test_type.types[name.upper()] = Test_type(range1=range1, unit=unit, range2=range2, period=period, name=name)
             elif len(ranges) == 1 and ranges[0][0] == '>':
                 range1 = ranges[0][1::]
-                Test_type.types[name] = Test_type(range1=range1, unit=unit, period=period, name=name)
+                Test_type.types[name.upper()] = Test_type(range1=range1, unit=unit, period=period, name=name)
             elif len(ranges) == 1 and ranges[0][0] == '<':
                 range2 = ranges[0][1::]
-                Test_type.types[name] = Test_type(range2=range2, unit=unit, period=period, name=name)
+                Test_type.types[name.upper()] = Test_type(range2=range2, unit=unit, period=period, name=name)
 
             else:
                 raise Exception('Wrong number of ranges')

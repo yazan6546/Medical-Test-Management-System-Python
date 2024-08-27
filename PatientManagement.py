@@ -10,6 +10,8 @@ from UpdateHandler import UpdateHandler
 def main():
 
     Test_type.import_tests()
+    print(Test_type.types.keys())
+
     Patient.import_records()
 
 
@@ -22,11 +24,11 @@ def main():
             ConsolePrinter.print_test_file()
             print()
 
-        if option == 2:
+        elif option == 2:
             ConsolePrinter.print_record_file()
             print()
 
-        if option == 3:
+        elif option == 3:
             InsertionHandler.insert_medical_test()
             print("Test successfully added.\n")
 

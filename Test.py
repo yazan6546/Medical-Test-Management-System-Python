@@ -29,9 +29,9 @@ class Test:
 
     @name.setter
     def name(self, name):
-        InputValidator.is_test_name_valid(name, Test_type.types)
-        self.unit = Test_type.types[name].unit
-        self.__name = name
+        InputValidator.is_test_name_valid_2(name, Test_type.types)
+        self.unit = Test_type.types[name.upper()].unit
+        self.__name = name.upper()
 
     @property
     def status(self):

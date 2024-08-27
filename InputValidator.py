@@ -15,13 +15,17 @@ class InputValidator:
 
     @staticmethod
     def is_test_name_valid(test_name, types):
-        if  test_name not in types:
-            raise ValueError("Test name is invalid")
+        if  test_name.upper() in types:
+            raise ValueError(f"Test name {test_name} already exists.")
+        elif not test_name.isalpha():
+            raise ValueError(f"Test name {test_name} is invalid.")
 
     @staticmethod
-    def is_test_name_exist(test_name, types):
-        if test_name in types:
-            raise ValueError("Test name already exist.")
+    def is_test_name_valid_2(test_name, types):
+        if test_name.upper() not in types:
+            raise ValueError(f"Test name {test_name} does not exist.")
+        elif not test_name.isalpha():
+            raise ValueError(f"Test name {test_name} is invalid.")
 
     @staticmethod
     def is_test_number_valid(test_number, types):
