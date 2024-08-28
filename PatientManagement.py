@@ -7,6 +7,17 @@ from Test_type import *
 from UpdateHandler import UpdateHandler
 
 
+def export_to_csv():
+    headers = "ID, Test Name, Start Date, Result, Unit, Status, End Date\n"
+    string = Patient.get_patients_without_numbering_CSV()
+
+    # Read the entire file into a string
+    with open('medicalTest.csv', 'w') as file:
+        file.write(headers)
+        file.writelines(string)
+
+
+
 def main():
 
     Test_type.import_tests()
@@ -16,7 +27,12 @@ def main():
     while True:
 
         ConsolePrinter.show_menu()
-        option = int(input("\nChoose your option.\n\n"))
+
+        try:
+            option = int(input("\nChoose your option.\n\n"))
+        except ValueError as e:
+            print(f"Error : {e}")
+            continue
 
         if option == 1:
             ConsolePrinter.print_test_file()
@@ -66,7 +82,8 @@ def main():
                 print(f"Error : {e}")
 
         elif option == 9:
-            continue
+            export_to_csv()
+            print("Successfully exported to medicalRecord.csv\n")
 
         elif option == 10:
             continue

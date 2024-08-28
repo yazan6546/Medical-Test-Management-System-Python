@@ -76,6 +76,14 @@ class Patient:
         return string
 
     @staticmethod
+    def get_patients_without_numbering_CSV():
+        string = ""
+        for patient in Patient.patients.values():
+            string +=  '\n'.join(map(lambda x : f"{patient.id}, {x.get_test_NA_for_DNE()}", patient.get_tests_list())) + "\n"
+
+        return string
+
+    @staticmethod
     def import_records():
 
         Patient.patients.clear()
