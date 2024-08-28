@@ -101,7 +101,12 @@ class Test_type:
         return test
 
 
-
+    @staticmethod
+    def get_all_tests():
+        string = ""
+        for test in Test_type.types.values():
+            string += str(test) + "\n"
+        return string
 
     @staticmethod
     def import_tests():

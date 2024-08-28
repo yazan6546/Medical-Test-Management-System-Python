@@ -22,7 +22,7 @@ class UpdateHandler:
             try:
                 InputValidator.is_test_number_valid(test_number, Test_type.types)
             except ValueError as e:
-                print(f"Error: {e}")
+                print(f"Error: {e}\n")
                 continue
 
             test = Test_type.types[list_key[int(test_number) - 1].upper()]
@@ -46,13 +46,13 @@ class UpdateHandler:
 
             print()
             record_file = open('medicalTest.txt', 'w')
-            record_file.write(Patient.get_patients_without_numbering())
+            record_file.write(Test_type.get_all_tests())
             record_file.close()
             #
             # record_file = open('medicalTest.txt', 'a')
             # record_file.write(str(test))
             # record_file.close()
-            # access = True
+            access = True
 
     @staticmethod
     def update_medical_record():
@@ -104,7 +104,7 @@ class UpdateHandler:
                             break  # Exit the loop if the user chooses not to retry
 
             print()
-            record_file = open('medicalTest.txt', 'w')
+            record_file = open('medicalRecord.txt.txt', 'w')
             record_file.write(Patient.get_patients_without_numbering())
             record_file.close()
 
