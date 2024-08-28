@@ -119,6 +119,15 @@ class Test:
 
         return test
 
+    def get_test_NA_for_DNE(self):
+        test = f"%s, %s, %.1f, %s, %s" % (
+        self.name, self.date_start.strftime("%Y-%m-%d %H:%M"), self.result, self.unit, self.status)
+        if self.status.lower() == 'completed':
+            test += f", %s" % self.date_end.strftime("%Y-%m-%d %H:%M")
+        else:
+            test += ", N/A"
+        return test
+
     def is_abnormal(self):
         range1 = Test_type.types[self.name].range1  # get the normal range of this test
         range2 = Test_type.types[self.name].range2
