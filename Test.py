@@ -42,6 +42,9 @@ class Test:
     @status.setter
     def status(self, status):
         InputValidator.is_test_status_valid(status)
+
+        if status.lower() != 'completed':
+            self.__date_end = None
         self.__status = status
 
     @property
