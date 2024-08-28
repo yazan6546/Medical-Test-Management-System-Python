@@ -31,7 +31,6 @@ class csv_read:
 
         for record in records[1:]:
             data = record.split(',')
-            print(data)
             id = data[0].strip()
             data = ",".join(data[1:]).strip()
             if id not in Patient.patients:

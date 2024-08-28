@@ -12,8 +12,8 @@ class Test:
         self.status = status
         self.unit = unit
         self.result = result
-        self.date_start = date_start
         self.__date_end = None
+        self.date_start = date_start
         if status.lower() == 'completed':
             self.date_end = date_end
 
@@ -52,8 +52,16 @@ class Test:
     def date_start(self, date_start):
         date = datetime.datetime.strptime(date_start, '%Y-%m-%d %H:%M')
 
+        if self.status.lower() == 'completed':
+            self.__date_end = None
+
         if date > datetime.datetime.now():
             raise ValueError("Date cannot be in the future")
+
+        if self.__date_end is not None and self.status.lower() == "completed" and date > self.__date_end:
+            raise ValueError("start date cannot be higher than end date")
+        elif self.__date_end is not None and self.status.lower() == "completed" and date == self.__date_end:
+            raise ValueError("start date cannot be equal to end date")
 
         self.__date_start = date
 
