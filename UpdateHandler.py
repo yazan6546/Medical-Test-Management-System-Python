@@ -93,21 +93,27 @@ class UpdateHandler:
                     attr = str(attr).replace("_Test__", "")
                     new_value = input(f"Current {attr}: {value} | Enter new value or press Enter to skip: ").strip()
 
-                    if not new_value:  # If the user presses Enter without input, skip the attribute
+                    if attr == "date_end" and test.date_end is None and not new_value: # If the status was changed to completed and the user did not enter anything for date
+                        print("You should enter a value for date_end")
+
+                    elif not new_value:  # If the user presses Enter without input, skip the attribute
                         break
+
                     try:
                         # Validate the input using the corresponding validation function
                         setattr(test, attr, new_value)  # Update the attribute
-                        print(f"{test.status}")
+                        print("aahaha")
                         break  # Exit the loop if input is valid
                     except ValueError as e:
                         print(f"Invalid input for {attr}: {e}")
-                        retry = input("Would you like to retry? (y/n): ").strip().lower()
-                        if retry != 'y':
-                            break  # Exit the loop if the user chooses not to retry
+
+                        if attr != "date_end" and test.date_end is not None: # this option does not appear if date_end is None
+                            retry = input("Would you like to retry? (y/n): ").strip().lower()
+                            if retry != 'y':
+                                break  # Exit the loop if the user chooses not to retry
 
             print()
-            record_file = open('medicalRecord.txt.txt', 'w')
+            record_file = open('medicalRecord.txt', 'w')
             record_file.write(Patient.get_patients_without_numbering())
             record_file.close()
 
