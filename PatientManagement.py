@@ -1,52 +1,9 @@
 import Filter_records
-import Patient
 from ConsolePrinter import ConsolePrinter
 from InsertionHandler import InsertionHandler
 from Patient import *
-from Test_type import *
 from UpdateHandler import UpdateHandler
-
-
-def export_to_csv():
-    headers = "ID, Test Name, Start Date, Result, Unit, Status, End Date\n"
-    string = Patient.get_patients_without_numbering_CSV()
-
-    # Read the entire file into a string
-    with open('medicalRecord.csv', 'w') as file:
-        file.write(headers)
-        file.writelines(string)
-
-def import_from_csv(name):
-    Patient.patients.clear()
-    # Read the entire file into a string
-
-    try:
-        with open(f"{name}.csv", 'r') as file:
-            content = file.read()
-
-    except FileNotFoundError:
-        print(f"File {name}.csv does not exist\n")
-
-
-    # Split content based on the first delimiter ':'
-    records = content.split('\n')
-    records = list(filter(lambda x: x != '', records))
-    print(records)
-
-    for record in records[1:]:
-        data = record.split(',')
-        print(data)
-        id = data[0].strip()
-        data = ",".join(data[1:]).strip()
-        if id not in Patient.patients:
-            Patient.add_patient(id)
-        test = Test.create_test(data)
-        Patient.patients[id].add_test(test)
-
-    # for patient in Patient.patients.values():
-    #     print(patient.id)
-
-
+from csv_read import csv_read
 
 def main():
 
@@ -112,13 +69,13 @@ def main():
                 print(f"Error : {e}")
 
         elif option == 9:
-            export_to_csv()
+            csv_read.export_to_csv()
             print("Successfully exported to medicalRecord.csv\n")
 
         elif option == 10:
 
             name = input("Enter the name of the csv file\n")
-            import_from_csv(name)
+            csv_read.import_from_csv(name)
             print("Successfully imported from medicalRecord.csv\n")
 
         else:
