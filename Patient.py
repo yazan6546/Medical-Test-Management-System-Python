@@ -88,8 +88,13 @@ class Patient:
 
         Patient.patients.clear()
         # Read the entire file into a string
-        with open('medicalRecord.txt', 'r') as file:
-            content = file.read()
+
+        try:
+            with open('medicalRecord.txt', 'r') as file:
+                content = file.read()
+        except FileNotFoundError:
+            print(f"File medicalRecord.txt not found.")
+            exit(1)
 
         # Split content based on the first delimiter ':'
         records = content.split('\n')
@@ -120,10 +125,6 @@ class Patient:
     def remove_patient(patient):
         Patient.patients.pop(patient.id)
 
-    @staticmethod
-    def convert_to_array():
-        array = [(i.id, i.__tests) for i in Patient.patients.values()]
-        return array
 
     @staticmethod
     def get_sum_result(patients, attr):

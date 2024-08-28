@@ -12,9 +12,39 @@ def export_to_csv():
     string = Patient.get_patients_without_numbering_CSV()
 
     # Read the entire file into a string
-    with open('medicalTest.csv', 'w') as file:
+    with open('medicalRecord.csv', 'w') as file:
         file.write(headers)
         file.writelines(string)
+
+def import_from_csv(name):
+    Patient.patients.clear()
+    # Read the entire file into a string
+
+    try:
+        with open(f"{name}.csv", 'r') as file:
+            content = file.read()
+
+    except FileNotFoundError:
+        print(f"File {name}.csv does not exist\n")
+
+
+    # Split content based on the first delimiter ':'
+    records = content.split('\n')
+    records = list(filter(lambda x: x != '', records))
+    print(records)
+
+    for record in records[1:]:
+        data = record.split(',')
+        print(data)
+        id = data[0].strip()
+        data = ",".join(data[1:]).strip()
+        if id not in Patient.patients:
+            Patient.add_patient(id)
+        test = Test.create_test(data)
+        Patient.patients[id].add_test(test)
+
+    # for patient in Patient.patients.values():
+    #     print(patient.id)
 
 
 
@@ -86,7 +116,10 @@ def main():
             print("Successfully exported to medicalRecord.csv\n")
 
         elif option == 10:
-            continue
+
+            name = input("Enter the name of the csv file\n")
+            import_from_csv(name)
+            print("Successfully imported from medicalRecord.csv\n")
 
         else:
             print("Invalid option. Please try again.\n")
