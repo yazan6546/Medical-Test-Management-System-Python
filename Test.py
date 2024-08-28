@@ -7,14 +7,16 @@ from Test_type import Test_type
 class Test:
 
     def __init__(self, name, status, unit, date_start, date_end=None, result=None):
+
         self.name = name
         self.status = status
         self.unit = unit
         self.result = result
         self.date_start = date_start
-
+        self.__date_end = None
         if status.lower() == 'completed':
             self.date_end = date_end
+
 
     def __str__(self):
         test = f"%s, %s, %.1f, %s, %s" % (
@@ -25,13 +27,13 @@ class Test:
 
     @property
     def name(self):
-        return self.__name
+        return self.__name.upper()
 
     @name.setter
     def name(self, name):
-        InputValidator.is_test_name_valid(name, Test_type.types)
-        self.unit = Test_type.types[name].unit
-        self.__name = name
+        InputValidator.is_test_name_valid_2(name, Test_type.types)
+        self.unit = Test_type.types[name.upper()].unit
+        self.__name = name.upper()
 
     @property
     def status(self):
@@ -66,6 +68,11 @@ class Test:
 
         if date > datetime.datetime.now():
             raise ValueError("Date cannot be in the future")
+
+        if date < self.date_start:
+            raise ValueError("start date cannot be higher than end date")
+        elif date == self.date_start:
+            raise ValueError("start date cannot be equal to end date")
 
         self.__date_end = date
 

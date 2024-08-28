@@ -15,13 +15,17 @@ class InputValidator:
 
     @staticmethod
     def is_test_name_valid(test_name, types):
-        if  test_name not in types:
-            raise ValueError("Test name is invalid")
+        if  test_name.upper() in types:
+            raise ValueError(f"Test name {test_name} already exists.")
+        elif not test_name.isalpha():
+            raise ValueError(f"Test name {test_name} is invalid.")
 
     @staticmethod
-    def is_test_name_exist(test_name, types):
-        if test_name in types:
-            raise ValueError("Test name already exist.")
+    def is_test_name_valid_2(test_name, types):
+        if test_name.upper() not in types:
+            raise ValueError(f"Test name {test_name} does not exist.")
+        elif not test_name.isalpha():
+            raise ValueError(f"Test name {test_name} is invalid.")
 
     @staticmethod
     def is_test_number_valid(test_number, types):
@@ -55,6 +59,16 @@ class InputValidator:
 
             raise ValueError("Test status is invalid")
 
+    @staticmethod
+    def is_range_valid(range):
+        try:
+            float(range)
+        except ValueError:
+            raise ValueError("Range is invalid")
+        if float(range) < 0 and float(range) != -1:
+            raise ValueError("Range should be greater than or equal to zero or -1 if DNE")
+
+
 
     @staticmethod
     def isfloat(num):
@@ -62,6 +76,17 @@ class InputValidator:
             float(num)
         except ValueError:
             raise ValueError("Invalid floating point number.")
+
+    @staticmethod
+    def is_result_valid(num):
+        try:
+            float(num)
+        except ValueError:
+            raise ValueError("Invalid floating point number.")
+
+        if float(num) < 0:
+            raise ValueError("Result should be greater than or equal to zero.")
+
 
     @staticmethod
     def is_period_valid(period):
@@ -80,14 +105,16 @@ class InputValidator:
     @staticmethod
     def are_bounds_consistent(lower_bound, upper_bound):
 
-        if lower_bound == -1 or upper_bound == -1:
-            return True
-
-        lower_bound = float(lower_bound)
-        upper_bound = float(upper_bound)
-        if lower_bound > upper_bound:
+        if float(lower_bound) == -1 or float(upper_bound) == -1:
+            return
+        elif float(lower_bound) > float(upper_bound):
             raise ValueError("Lower bound should be less than upper bound.")
-        return True
+
+    @staticmethod
+    def is_match_pattern(string):
+        if not re.match(r'^(?:[1-6](?:,[1-6])*)?$', string):
+            raise ValueError("Invalid pattern. It does not match the pattern 1, 2, 3...")
+
 
 
 

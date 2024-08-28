@@ -15,14 +15,12 @@ class InsertionHandler:
             try:
                 test_name = input("Enter test name: \n").strip()
 
-                if not test_name.isalpha():
-                    raise ValueError("Test name must be alphanumeric")
+                InputValidator.is_test_name_valid(test_name, Test_type.types)
 
-                InputValidator.is_test_name_exist(test_name, Test_type.types)
-
-                test_lower_bound = float(input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip())
-                test_upper_bound = float(input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip())
-
+                test_lower_bound = input("Enter test lower bound, if no lower bound exists, enter -1: \n").strip()
+                InputValidator.is_range_valid(test_lower_bound)
+                test_upper_bound = input("Enter test upper bound: if no upper bound exists, enter -1: \n").strip()
+                InputValidator.is_range_valid(test_upper_bound)
 
                 if (test_lower_bound == '-1') and (test_upper_bound == '-1'):
                     raise ValueError("you should input at least one bound\n")
@@ -57,7 +55,7 @@ class InsertionHandler:
             record_file.write(str(new_test))
             record_file.close()
 
-            Test_type.types[test_name] = new_test
+            Test_type.types[test_name.upper()] = new_test
             access = True
 
     @staticmethod
@@ -73,9 +71,9 @@ class InsertionHandler:
                 ConsolePrinter.print_test_names()
                 print()
                 test_name = input("Enter the test you want:\n").strip()
-                InputValidator.is_test_name_valid(test_name, Test_type.types)
+                InputValidator.is_test_name_valid_2(test_name, Test_type.types)
                 test_result = input("Enter test result: \n").strip()
-                InputValidator.isfloat(test_result)
+                InputValidator.is_result_valid(test_result)
                 ConsolePrinter.print_available_test_states()
                 print()
 
@@ -91,9 +89,11 @@ class InsertionHandler:
                 if test_status == "Completed":
                     test_date_end = input("Enter test date time in the format YYYY-MM-DD hh:mm : \n").strip()
                     InputValidator.is_date_time_valid(test_date_end)
+                    if test_date_start >= test_date_end:
+                        raise ValueError("end test date should be greater than start test date")
 
             except ValueError as e:
-                print(f"Error : {e}. Try again.")
+                print(f"Error : {e}. Try again.\n")
                 continue
 
 
@@ -102,7 +102,7 @@ class InsertionHandler:
                 patient = Patient(id=patient_id)
                 Patient.patients[patient_id] = patient
 
-            test_unit = Test_type.types[test_name].unit
+            test_unit = Test_type.types[test_name.upper()].unit
             test = Test(name=test_name, unit=test_unit, status=test_status, result=test_result,
                         date_start=test_date_start, date_end=test_date_end)
             Patient.patients[patient_id].add_test(test)

@@ -41,7 +41,7 @@ def filter_tests(conditions):
             filtered_dict = {id : Patient.patients[id].get_tests_list()}
 
     if 2 in conditions:
-        name = input("Enter Test Name: \n")
+        name = input("Enter Test Name: \n").upper()
 
         # Iterate over each test and filter
         for id, tests in filtered_dict.items():
@@ -130,8 +130,11 @@ def generate_report(conditions):
     patients = filter_tests(conditions)
     print_filtered_tests(patients)
 
-    summation = Patient.get_sum_result(patients, "result")
     count = Patient.get_record_num(patients)
+
+    if count == 0:
+        return
+    summation = Patient.get_sum_result(patients, "result")
     average_1 = summation/count
     min_1 = Patient.get_min_patients(patients, "result")
     max_1 = Patient.get_max_patients(patients, "result")

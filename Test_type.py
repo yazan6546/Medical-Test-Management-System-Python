@@ -17,7 +17,7 @@ class Test_type:
 
         self.__period = period
         self.__unit = unit
-        self.__name = name
+        self.name = name
 
     @property
     def name(self):
@@ -27,7 +27,7 @@ class Test_type:
     def name(self, value):
 
         InputValidator.is_test_name_valid(value, Test_type.types)
-        self.__name = value
+        self.__name = value.upper()
 
     @property
     def period(self):
@@ -44,6 +44,16 @@ class Test_type:
 
     @range1.setter
     def range1(self, value):
+        try:
+            float(value)
+        except ValueError:
+            raise ValueError("Range is invalid")
+        if float(value) < 0:
+            raise ValueError("Range should be greater than or equal to zero")
+
+        if self.range2 is not None and float(self.range2) < float(value):
+            raise ValueError("Lower bound should be less than upper bound")
+
         self.__range1 = float(value)
 
 
@@ -53,6 +63,16 @@ class Test_type:
 
     @range2.setter
     def range2(self, value):
+        try:
+            float(value)
+        except ValueError:
+            raise ValueError("Range is invalid")
+        if float(value) < 0:
+            raise ValueError("Range should be greater than or equal to zero")
+
+        if self.range1 is not None and float(self.range1) > float(value):
+            raise ValueError("Lower bound should be less than upper bound")
+
         self.__range2 = float(value)
 
     @property
@@ -72,7 +92,7 @@ class Test_type:
         if self.__range1 is not None and self.__range2 is not None:
             test += f">%.1f,<%.1f;" % (float(self.range1), float(self.range2))
         elif self.__range1 is None:
-            test += f"<%.1f; " % self.range2
+            test += f"<%.1f;" % self.range2
         elif self.__range2 is None:
             test += f">%.1f;" % self.range1
 
@@ -81,7 +101,12 @@ class Test_type:
         return test
 
 
-
+    @staticmethod
+    def get_all_tests():
+        string = ""
+        for test in Test_type.types.values():
+            string += str(test) + "\n"
+        return string
 
     @staticmethod
     def import_tests():
@@ -110,13 +135,13 @@ class Test_type:
             if len(ranges) == 2:
                 range1 = ranges[0][1::]
                 range2 = ranges[1][1::]
-                Test_type.types[name] = Test_type(range1=range1, unit=unit, range2=range2, period=period, name=name)
+                Test_type.types[name.upper()] = Test_type(range1=range1, unit=unit, range2=range2, period=period, name=name)
             elif len(ranges) == 1 and ranges[0][0] == '>':
                 range1 = ranges[0][1::]
-                Test_type.types[name] = Test_type(range1=range1, unit=unit, period=period, name=name)
+                Test_type.types[name.upper()] = Test_type(range1=range1, unit=unit, period=period, name=name)
             elif len(ranges) == 1 and ranges[0][0] == '<':
                 range2 = ranges[0][1::]
-                Test_type.types[name] = Test_type(range2=range2, unit=unit, period=period, name=name)
+                Test_type.types[name.upper()] = Test_type(range2=range2, unit=unit, period=period, name=name)
 
             else:
                 raise Exception('Wrong number of ranges')
