@@ -63,6 +63,7 @@ class UpdateHandler:
             ConsolePrinter.print_record_file()
             test_id = input("\nEnter the ID that you want a test of:\n").strip()
             try:
+                InputValidator.is_patient_id_valid(test_id)
                 InputValidator.is_patient_id_exist(test_id, Patient.patients)
                 patient = Patient.patients[test_id]
 
@@ -76,6 +77,7 @@ class UpdateHandler:
                 print(f"Error: {e}")
                 continue
 
+            print(test.__dict__)
             for attr, value in test.__dict__.items():
 
                 # The unit is brought from Test types object
@@ -83,7 +85,7 @@ class UpdateHandler:
                     continue
 
                 # Do not ask for date_end input if status is not completed
-                if test.status.lower != 'completed' and attr == '_Test__date_end':
+                if test.status.lower() != 'completed' and attr == '_Test__date_end':
                     continue
 
                 while True:
@@ -96,6 +98,7 @@ class UpdateHandler:
                     try:
                         # Validate the input using the corresponding validation function
                         setattr(test, attr, new_value)  # Update the attribute
+                        print(f"{test.status}")
                         break  # Exit the loop if input is valid
                     except ValueError as e:
                         print(f"Invalid input for {attr}: {e}")

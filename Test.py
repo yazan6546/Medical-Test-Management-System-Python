@@ -7,14 +7,16 @@ from Test_type import Test_type
 class Test:
 
     def __init__(self, name, status, unit, date_start, date_end=None, result=None):
+
         self.name = name
         self.status = status
         self.unit = unit
         self.result = result
         self.date_start = date_start
-
+        self.__date_end = None
         if status.lower() == 'completed':
             self.date_end = date_end
+
 
     def __str__(self):
         test = f"%s, %s, %.1f, %s, %s" % (
