@@ -102,7 +102,6 @@ class UpdateHandler:
                     try:
                         # Validate the input using the corresponding validation function
                         setattr(test, attr, new_value)  # Update the attribute
-                        print("aahaha")
                         break  # Exit the loop if input is valid
                     except ValueError as e:
                         print(f"Invalid input for {attr}: {e}")

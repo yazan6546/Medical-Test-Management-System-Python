@@ -69,6 +69,11 @@ class Test:
         if date > datetime.datetime.now():
             raise ValueError("Date cannot be in the future")
 
+        if date < self.date_start:
+            raise ValueError("start date cannot be higher than end date")
+        elif date == self.date_start:
+            raise ValueError("start date cannot be equal to end date")
+
         self.__date_end = date
 
     @property
