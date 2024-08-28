@@ -115,8 +115,12 @@ class Test_type:
         Test_type.types.clear()
 
         # Read the entire file into a string
-        with open('medicalTest.txt', 'r') as file:
-            content = file.read()
+        try:
+            with open('medicalTest.txt', 'r') as file:
+                content = file.read()
+        except FileNotFoundError:
+            print(f"File medicalTest.csv found.")
+            exit(1)
 
         # Split content based on the first delimiter ':'
         tests = content.split('\n')

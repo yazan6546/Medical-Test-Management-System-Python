@@ -1,22 +1,9 @@
 import Filter_records
-import Patient
 from ConsolePrinter import ConsolePrinter
 from InsertionHandler import InsertionHandler
 from Patient import *
-from Test_type import *
 from UpdateHandler import UpdateHandler
-
-
-def export_to_csv():
-    headers = "ID, Test Name, Start Date, Result, Unit, Status, End Date\n"
-    string = Patient.get_patients_without_numbering_CSV()
-
-    # Read the entire file into a string
-    with open('medicalTest.csv', 'w') as file:
-        file.write(headers)
-        file.writelines(string)
-
-
+from csv_read import csv_read
 
 def main():
 
@@ -82,11 +69,14 @@ def main():
                 print(f"Error : {e}")
 
         elif option == 9:
-            export_to_csv()
+            csv_read.export_to_csv()
             print("Successfully exported to medicalRecord.csv\n")
 
         elif option == 10:
-            continue
+
+            name = input("Enter the name of the csv file\n")
+            csv_read.import_from_csv(name)
+            print("Successfully imported from medicalRecord.csv\n")
 
         else:
             print("Invalid option. Please try again.\n")
