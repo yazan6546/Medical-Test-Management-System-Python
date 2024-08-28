@@ -5,11 +5,10 @@ from Patient import *
 from UpdateHandler import UpdateHandler
 from csv_read import csv_read
 
-def main():
 
+def main():
     Test_type.import_tests()
     Patient.import_records()
-
 
     while True:
 
@@ -51,7 +50,7 @@ def main():
 
             conditions = input("Enter conditions in this format : 1, 2, ...\n")
 
-            try :
+            try:
                 InputValidator.is_match_pattern(conditions.replace(" ", ""))
                 patients = Filter_records.filter_tests(conditions)
                 Filter_records.print_filtered_tests(patients)
@@ -61,7 +60,7 @@ def main():
         elif option == 8:
             ConsolePrinter.print_filter_menu()
 
-            try :
+            try:
                 conditions = input("Enter conditions in this format : 1, 2, ...\n")
                 InputValidator.is_match_pattern(conditions.replace(" ", ""))
                 Filter_records.generate_report(conditions)
@@ -81,8 +80,6 @@ def main():
 
         else:
             print("Invalid option. Please try again.\n")
-
-
 
 
 if __name__ == '__main__':
