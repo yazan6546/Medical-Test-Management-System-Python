@@ -27,6 +27,7 @@ class UpdateHandler:
 
             test = Test_type.types[list_key[int(test_number) - 1].upper()]
             for attr, value in test.__dict__.items():
+
                 while True:
 
                     print()
@@ -77,6 +78,8 @@ class UpdateHandler:
                 print(f"Error: {e}")
                 continue
 
+            print(test.__dict__.items())
+
             for attr, value in test.__dict__.items():
 
                 # The unit is brought from Test types object
@@ -95,7 +98,12 @@ class UpdateHandler:
                     if attr == "date_end" and test.date_end is None and not new_value: # If the status was changed to completed and the user did not enter anything for date
                         print("You should enter a value for date_end")
 
+                    elif attr == "date_end" and test.date_end is None:
+                        print("spofj\n")
+                        pass
+
                     elif not new_value:  # If the user presses Enter without input, skip the attribute
+                        print("hahaha")
                         break
 
                     try:
