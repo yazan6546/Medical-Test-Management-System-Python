@@ -4,12 +4,12 @@ from Test import Test
 class csv_read:
 
     @staticmethod
-    def export_to_csv():
+    def export_to_csv(name):
         headers = "ID, Test Name, Start Date, Result, Unit, Status, End Date\n"
         string = Patient.get_patients_without_numbering_CSV()
 
         # Read the entire file into a string
-        with open('medicalRecord.csv', 'w') as file:
+        with open(f'{name}.csv', 'w') as file:
             file.write(headers)
             file.writelines(string)
 
@@ -28,7 +28,6 @@ class csv_read:
         # Split content based on the first delimiter ':'
         records = content.split('\n')
         records = list(filter(lambda x: x != '', records))
-        print(records)
 
         for record in records[1:]:
             data = record.split(',')

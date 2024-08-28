@@ -69,14 +69,15 @@ def main():
                 print(f"Error : {e}")
 
         elif option == 9:
-            csv_read.export_to_csv()
-            print("Successfully exported to medicalRecord.csv\n")
+            name = input("Enter the name of the csv file\n")
+            csv_read.export_to_csv(name)
+            print(f"Successfully exported to {name}.csv\n")
 
         elif option == 10:
 
             name = input("Enter the name of the csv file\n")
             csv_read.import_from_csv(name)
-            print("Successfully imported from medicalRecord.csv\n")
+            print(f"Successfully imported from {name}.csv\n")
 
         else:
             print("Invalid option. Please try again.\n")
