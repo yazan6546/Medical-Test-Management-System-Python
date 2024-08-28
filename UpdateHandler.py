@@ -77,7 +77,6 @@ class UpdateHandler:
                 print(f"Error: {e}")
                 continue
 
-            print(test.__dict__)
             for attr, value in test.__dict__.items():
 
                 # The unit is brought from Test types object
